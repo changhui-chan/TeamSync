@@ -30,6 +30,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
+            <div>이거 바뀌냐?</div>
             <Image
               className="dark:invert"
               src="/vercel.svg"
