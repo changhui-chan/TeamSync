@@ -1,9 +1,12 @@
 import { dirname } from 'path';
 
 import { FlatCompat } from '@eslint/eslintrc';
+import eslint from '@eslint/js';
 import pluginQuery from '@tanstack/eslint-plugin-query';
 import configPrettier from 'eslint-config-prettier';
+import reactPlugin from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import tseslint from 'typescript-eslint';
 import { fileURLToPath } from 'url';
 
 
@@ -15,16 +18,20 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  eslint.configs.recommended,
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...tseslint.configs.recommended,
   ...pluginQuery.configs['flat/recommended'],
   configPrettier,
   {
     plugins: {
+      '@typescript-eslint': tseslint.plugin,
       'simple-import-sort': simpleImportSort,
+      react: reactPlugin,
     },
 
     rules: {
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-empty-function': 'warn',
       '@typescript-eslint/consistent-type-imports': 'warn',
@@ -32,15 +39,14 @@ const eslintConfig = [
       'react/jsx-boolean-value': ['warn', 'never'],
       'react/jsx-no-useless-fragment': 'warn',
       'react/self-closing-comp': 'warn',
-      'simple-import-sort/imports': 'warn',
-      'simple-import-sort/exports': 'warn',
+      'react-hooks/exhaustive-deps': 'warn',
 
+      
+      '@next/next/no-img-element': 'warn',
+      
       'import/no-unresolved': 'error',
       'import/newline-after-import': ['warn', { count: 2 }],
-
-      'react-hooks/exhaustive-deps': 'warn',
-      '@next/next/no-img-element': 'warn',
-
+      'simple-import-sort/exports': 'warn',
       'simple-import-sort/imports': [
         'warn',
         {
