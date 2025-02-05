@@ -14,26 +14,31 @@ jobs:
 
       - name: Get today's commit count and author
         id: commit-info
+        shell: bash
         run: |
-          # 이름 변환 함수
-          convert_name() {
-            case "$1" in
-              "김지윤") echo "지윤" ;;
-              "changhui-chan") echo "창희" ;;
-              "수진") echo "수진" ;;
-              "박지민") echo "지민" ;;
-              *) echo "$1" ;;  # 매칭되지 않으면 원래 이름 반환
-            esac
-          }
+          declare -A NAME_MAP
+          NAME_MAP["김지윤"]="지윤"
+          NAME_MAP["changhui-chan"]="창희"
+          NAME_MAP["수진"]="수진"
+          NAME_MAP["박지민"]="지민"
 
-          # 오늘 커밋 정보 가져오기 (내림차순 정렬)
+          # 각 작업자의 오늘 커밋 횟수 가져오기 & 내림차순 정렬
           COMMIT_INFO=$(git shortlog -s -n --since="midnight" | sort -rn | awk '{$1=$1;print}')
 
+          # 변환 적용
           MAPPED_INFO=""
           while read -r line; do
             COUNT=$(echo $line | awk '{print $1}')
-            AUTHOR=$(echo $line | cut -d ' ' -f2- | xargs)  # 공백 제거
-            AUTHOR=$(convert_name "$AUTHOR")  # 이름 변환 적용
+            AUTHOR=$(echo $line | cut -d ' ' -f2-)
+
+            # AUTHOR 값의 양쪽 공백을 제거
+            AUTHOR=$(echo "$AUTHOR" | xargs)
+
+            # 이름 변환 적용
+            if [[ -n "${NAME_MAP["$AUTHOR"]}" ]]; then
+              AUTHOR="${NAME_MAP["$AUTHOR"]}"
+            fi
+            
             MAPPED_INFO+="$AUTHOR $COUNT, "
           done <<< "$COMMIT_INFO"
 
@@ -46,6 +51,7 @@ jobs:
           fi
 
           echo "::set-output name=commit-info::$MAPPED_INFO"
+
 
       - name: Send Discord notification
         run: |
