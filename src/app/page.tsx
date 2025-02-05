@@ -5,6 +5,7 @@ const Home = () => {
       <p className="text-center text-lg">
         Get started by editing <code>src/pages/index.tsx</code>
       </p>
+      <p>권한테스트</p>
     </div>
   );
 };
