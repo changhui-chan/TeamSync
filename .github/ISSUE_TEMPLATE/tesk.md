@@ -1,6 +1,6 @@
 ---
 name: 'Custom Issue Template'
-about: 'Mogazoa 프로젝트 이슈 템플릿'
+about: 'TeamSync 프로젝트 이슈 템플릿'
 title: 'type: 이슈 제목'
 labels: ''
 assignees: ''
