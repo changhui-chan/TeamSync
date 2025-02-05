@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { errorToast } from '@/util/toast';
+
 const BASE_URL = 'https://fe-project-cowokers.vercel.app/10-25';
 
 const axiosInstance = axios.create({
@@ -18,24 +20,27 @@ axiosInstance.interceptors.response.use(
     const errStatus = errRes?.status;
 
     if (!errRes) {
-      return Promise.reject(new Error('서버에 연결할 수 없습니다.'));
+      errorToast('서버에 연결할 수 없습니다.');
+      return;
     }
 
     switch (errStatus) {
       case 401:
-        Promise.reject(new Error('로그인 정보가 필요합니다.'));
-        return (window.location.href = '/login');
+        errorToast('로그인 정보가 필요합니다.');
+        window.location.href = '/login';
+        break;
 
       case 403:
-        return Promise.reject(new Error('권한이 없습니다.'));
+        errorToast('권한이 없습니다.');
+        break;
 
       case 404:
-        return Promise.reject(new Error('리소스를 찾을 수 없습니다.'));
+        errorToast('리소스를 찾을 수 없습니다.');
+        break;
 
       case 500:
-        return Promise.reject(
-          new Error('서버에 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
-        );
+        errorToast('서버에 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+        break;
 
       default:
         return Promise.reject(error);
