@@ -21,26 +21,25 @@ axiosInstance.interceptors.response.use(
 
     if (!errRes) {
       errorToast('서버에 연결할 수 없습니다.');
-      return;
+      return new Promise(() => {});
     }
-
     switch (errStatus) {
       case 401:
         errorToast('로그인 정보가 필요합니다.');
         window.location.href = '/login';
-        break;
+        return new Promise(() => {});
 
       case 403:
         errorToast('권한이 없습니다.');
-        break;
+        return new Promise(() => {});
 
       case 404:
         errorToast('리소스를 찾을 수 없습니다.');
-        break;
+        return new Promise(() => {});
 
       case 500:
         errorToast('서버에 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.');
-        break;
+        return new Promise(() => {});
 
       default:
         return Promise.reject(error);
