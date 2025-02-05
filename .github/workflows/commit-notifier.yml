@@ -31,8 +31,8 @@ jobs:
             AUTHOR=$(echo $line | cut -d ' ' -f2-)
 
             # 이름 변환 적용
-            if [[ -n "${NAME_MAP[$AUTHOR]}" ]]; then
-              AUTHOR="${NAME_MAP[$AUTHOR]}"
+            if [[ -n "${NAME_MAP["$AUTHOR"]}" ]]; then
+              AUTHOR="${NAME_MAP["$AUTHOR"]}"
             fi
             
             MAPPED_INFO+="$AUTHOR $COUNT, "
