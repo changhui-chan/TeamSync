@@ -23,6 +23,7 @@ jobs:
               "김지윤") echo "지윤" ;;
               "changhui-chan") echo "창희" ;;
               "수진") echo "수진" ;;
+              "minim1nh ") echo "수진" ;;
               "박지민") echo "지민" ;;
               *) echo "$1" ;;  # 매칭되지 않으면 원래 이름 반환
             esac
@@ -53,7 +54,7 @@ jobs:
 
           MAPPED_INFO=""
           for AUTHOR in "${!AUTHOR_COUNT[@]}"; do
-            MAPPED_INFO+="$AUTHOR ${AUTHOR_COUNT[$AUTHOR]}"
+            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]}잔디 "
           done
 
           MAPPED_INFO=${MAPPED_INFO%17}
@@ -69,7 +70,7 @@ jobs:
             curl -X POST \
               -H "Content-Type: application/json" \
               -d "{\"content\": \"$MESSAGE\"}" \
-              "https://discord.com/api/webhooks/1336719821236080652/MuA9qoTj_Iv7KlJTv6wlrQ6bLuU0837tyHkABNZoaQXEQ-QeVrobCrxPdt9r_LuuFLhj"
+              "https://discord.com/api/webhooks/1336599839471042580/9YzcPqWkxMbboTuXcONRrWmgdLdgAfiFwW_0aeZObAqks_i10faMxF_4Oo9nwHmzSos5"
           else
             echo "No commits to notify."
           fi
