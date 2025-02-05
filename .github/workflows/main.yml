@@ -1,0 +1,43 @@
+name: Commit Notifier
+
+on:
+  schedule:
+    - cron: '0 15 * * *' # 매일 00:00(KST) 실행 (UTC 기준 15:00)
+
+jobs:
+  send-discord-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get today's commit count and author
+        id: commit-info
+        run: |
+          # 각 작업자의 오늘 커밋 횟수 가져오기 & 내림차순 정렬
+          COMMIT_INFO=$(git shortlog -s -n --since="midnight" | sort -rn | awk '{$1=$1;print}' | tr '\n' ', ')
+          COMMIT_INFO=${COMMIT_INFO%,} # 마지막 쉼표 제거
+          
+          # 커밋이 있는 경우만 출력
+          if [ -z "$COMMIT_INFO" ]; then
+            echo "No commits today."
+            exit 0
+          fi
+
+          echo "::set-output name=commit-info::$COMMIT_INFO"
+
+      - name: Send Discord notification
+        run: |
+          COMMIT_INFO="${{ steps.commit-info.outputs.commit-info }}"
+          
+          # 커밋이 있는 경우에만 알림 전송
+          if [ -n "$COMMIT_INFO" ]; then
+            MESSAGE="오늘의 커밋 완료! 🔥\n$COMMIT_INFO\n🌱 잔디를 심었습니다!"
+            
+            curl -X POST \
+              -H "Content-Type: application/json" \
+              -d "{\"content\": \"$MESSAGE\"}" \
+              "https://discord.com/api/webhooks/1336540881414520852/zfVxEFbbtAewxohd6nF9cB5pauFHWbnKyD4iC9AN72NC43YggRkvHbYSuwRwFCtBdSJ_"
+          else
+            echo "No commits to notify."
+          fi
