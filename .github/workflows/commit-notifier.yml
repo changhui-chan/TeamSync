@@ -2,7 +2,7 @@ name: Commit Notifier
 
 on:
   schedule:
-    - cron: '0 15 * * *' # 매일 00:00(KST) 실행 (UTC 기준 15:00)
+    - cron: '0 15 * * *'  # 매일 00:00(KST) 실행 (UTC 기준 15:00)
   workflow_dispatch:  # 수동 실행 추가
 
 jobs:
@@ -11,10 +11,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Get today's commit count and author
         id: commit-info
-        shell: bash
         run: |
           # 이름 변환 함수
           convert_name() {
@@ -27,38 +28,48 @@ jobs:
             esac
           }
 
-          # 오늘 커밋 정보 가져오기 (내림차순 정렬)
-          COMMIT_INFO=$(git shortlog -s -n --since="midnight" | sort -rn | awk '{$1=$1;print}')
+          TODAY=$(date +'%Y-%m-%d')
+          echo "오늘 날짜: $TODAY"
 
-          MAPPED_INFO=""
-          while read -r line; do
-            COUNT=$(echo $line | awk '{print $1}')
-            AUTHOR=$(echo $line | cut -d ' ' -f2- | xargs)  # 공백 제거
-            AUTHOR=$(convert_name "$AUTHOR")  # 이름 변환 적용
-            MAPPED_INFO+="$AUTHOR $COUNT, "
-          done <<< "$COMMIT_INFO"
+          # 각 커밋을 줄바꿈하여 출력하도록 수정
+          COMMIT_INFO=$(git log --since="$TODAY 00:00:00" --until="$TODAY 23:59:59" --pretty=format:"%an%n")
 
-          MAPPED_INFO=${MAPPED_INFO%,} # 마지막 쉼표 제거
-
-          # 커밋이 있는 경우만 출력
-          if [ -z "$MAPPED_INFO" ]; then
+          if [ -z "$COMMIT_INFO" ]; then
             echo "No commits today."
             exit 0
           fi
+
+          # 작업자별 커밋 수를 셀 연관 배열 선언
+          declare -A AUTHOR_COUNT
+
+          while read -r AUTHOR; do
+            # AUTHOR가 비어있는지 체크
+            if [ -z "$AUTHOR" ]; then
+              continue  # AUTHOR가 비어있으면 건너뛰기
+            fi
+            AUTHOR=$(convert_name "$AUTHOR")
+            AUTHOR_COUNT["$AUTHOR"]=$((AUTHOR_COUNT["$AUTHOR"] + 1))
+          done <<< "$COMMIT_INFO"
+
+          MAPPED_INFO=""
+          for AUTHOR in "${!AUTHOR_COUNT[@]}"; do
+            MAPPED_INFO+="$AUTHOR ${AUTHOR_COUNT[$AUTHOR]}"
+          done
+
+          MAPPED_INFO=${MAPPED_INFO%17}
+          echo "MAPPED_INFO: $MAPPED_INFO"
 
           echo "::set-output name=commit-info::$MAPPED_INFO"
 
       - name: Send Discord notification
         run: |
           COMMIT_INFO="${{ steps.commit-info.outputs.commit-info }}"
-          
-          # 커밋이 있는 경우에만 알림 전송
           if [ -n "$COMMIT_INFO" ]; then
-            MESSAGE="오늘의 커밋 완료! 🔥\n$COMMIT_INFO\n🌱 잔디를 심었습니다!"
-            
+            MESSAGE="오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n\n 잔디🌱를 심었습니다!"
             curl -X POST \
               -H "Content-Type: application/json" \
               -d "{\"content\": \"$MESSAGE\"}" \
-              "https://discord.com/api/webhooks/1336599839471042580/9YzcPqWkxMbboTuXcONRrWmgdLdgAfiFwW_0aeZObAqks_i10faMxF_4Oo9nwHmzSos5"
+              "https://discord.com/api/webhooks/1336719821236080652/MuA9qoTj_Iv7KlJTv6wlrQ6bLuU0837tyHkABNZoaQXEQ-QeVrobCrxPdt9r_LuuFLhj"
           else
             echo "No commits to notify."
+          fi
