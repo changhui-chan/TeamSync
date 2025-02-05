@@ -14,6 +14,7 @@ jobs:
 
       - name: Get today's commit count and author
         id: commit-info
+        shell: bash
         run: |
           # 이름 변환 함수
           convert_name() {
