@@ -17,12 +17,14 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     const errRes = error.response;
-    const errStatus = errRes?.status;
 
     if (!errRes) {
       errorToast('서버에 연결할 수 없습니다.');
       return new Promise(() => {});
     }
+
+    const errStatus = errRes.status;
+
     switch (errStatus) {
       case 401:
         errorToast('로그인 정보가 필요합니다.');
