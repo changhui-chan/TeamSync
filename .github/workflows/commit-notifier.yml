@@ -54,7 +54,7 @@ jobs:
 
           MAPPED_INFO=""
           for AUTHOR in "${!AUTHOR_COUNT[@]}"; do
-            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]}"
+            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR] }"
           done
 
           MAPPED_INFO=${MAPPED_INFO%17}
