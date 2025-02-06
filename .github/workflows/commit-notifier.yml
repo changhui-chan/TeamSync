@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get today's commit count and author
+      - name: Get yesterday's commit count and author
         id: commit-info
         run: |
           # 이름 변환 함수
@@ -29,19 +29,16 @@ jobs:
             esac
           }
 
-          # 기준 시간을 한국 시간으로 변환하여 출력
-          TODAY=$(TZ="Asia/Seoul" date +'%Y-%m-%d')
-          echo "오늘 날짜: $TODAY"
+          # 어제 날짜를 기준으로 설정
+          YESTERDAY=$(TZ="Asia/Seoul" date --date='1 day ago' +'%Y-%m-%d')
+          echo "어제 날짜: $YESTERDAY"
+          echo COMMIT_INFO=$(TZ="Asia/Seoul" git log --since="$YESTERDAY 00:00:00" --until="$YESTERDAY 23:59:59" --pretty=format:"%an%n")
 
-          # 디버깅용: 커밋 내역 전체 출력 (커밋 시간 포함)
-          echo "디버깅용: 커밋 내역 출력"
-          git log --since="$TODAY 00:00:00" --until="$TODAY 23:59:59" --pretty=format:"%an %ad" --date=iso
-
-          # 각 커밋을 줄바꿈하여 출력하도록 수정
-          COMMIT_INFO=$(git log --since="$TODAY 00:00:00" --until="$TODAY 23:59:59" --pretty=format:"%an%n")
+          # 어제 날짜 기준으로 커밋 내역 출력 (한국 시간 사용)
+          COMMIT_INFO=$(TZ="Asia/Seoul" git log --since="$YESTERDAY 00:00:00" --until="$YESTERDAY 23:59:59" --pretty=format:"%an%n")
 
           if [ -z "$COMMIT_INFO" ]; then
-            echo "No commits today."
+            echo "No commits yesterday."
             exit 0
           fi
 
