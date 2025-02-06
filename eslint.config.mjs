@@ -9,7 +9,6 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 import { fileURLToPath } from 'url';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -25,9 +24,9 @@ const eslintConfig = [
   configPrettier,
   {
     plugins: {
+      react: reactPlugin,
       '@typescript-eslint': tseslint.plugin,
       'simple-import-sort': simpleImportSort,
-      react: reactPlugin,
     },
 
     rules: {
@@ -41,11 +40,10 @@ const eslintConfig = [
       'react/self-closing-comp': 'warn',
       'react-hooks/exhaustive-deps': 'warn',
 
-      
       '@next/next/no-img-element': 'warn',
-      
+
       'import/no-unresolved': 'error',
-      'import/newline-after-import': ['warn', { count: 2 }],
+
       'simple-import-sort/exports': 'warn',
       'simple-import-sort/imports': [
         'warn',
