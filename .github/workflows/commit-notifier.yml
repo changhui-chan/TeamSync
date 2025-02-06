@@ -29,8 +29,13 @@ jobs:
             esac
           }
 
-          TODAY=$(date +'%Y-%m-%d')
+          # 기준 시간을 한국 시간으로 변환하여 출력
+          TODAY=$(TZ="Asia/Seoul" date +'%Y-%m-%d')
           echo "오늘 날짜: $TODAY"
+
+          # 디버깅용: 커밋 내역 전체 출력 (커밋 시간 포함)
+          echo "디버깅용: 커밋 내역 출력"
+          git log --since="$TODAY 00:00:00" --until="$TODAY 23:59:59" --pretty=format:"%an %ad" --date=iso
 
           # 각 커밋을 줄바꿈하여 출력하도록 수정
           COMMIT_INFO=$(git log --since="$TODAY 00:00:00" --until="$TODAY 23:59:59" --pretty=format:"%an%n")
@@ -40,37 +45,33 @@ jobs:
             exit 0
           fi
 
-          # 작업자별 커밋 수를 셀 연관 배열 선언
           declare -A AUTHOR_COUNT
 
           while read -r AUTHOR; do
-            # AUTHOR가 비어있는지 체크
             if [ -z "$AUTHOR" ]; then
-              continue  # AUTHOR가 비어있으면 건너뛰기
+              continue
             fi
             AUTHOR=$(convert_name "$AUTHOR")
             AUTHOR_COUNT["$AUTHOR"]=$((AUTHOR_COUNT["$AUTHOR"] + 1))
           done <<< "$COMMIT_INFO"
 
+          # 작업자별 커밋 수 출력
           MAPPED_INFO=""
           for AUTHOR in "${!AUTHOR_COUNT[@]}"; do
-            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]} "
+            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]}\n"
           done
 
-          MAPPED_INFO=${MAPPED_INFO%17}
-          echo "MAPPED_INFO: $MAPPED_INFO"
-
-          echo "::set-output name=commit-info::$MAPPED_INFO"
+          echo "commit-info=$MAPPED_INFO" >> $GITHUB_ENV
 
       - name: Send Discord notification
         run: |
-          COMMIT_INFO="${{ steps.commit-info.outputs.commit-info }}"
+          COMMIT_INFO="${{ env.commit-info }}"
           if [ -n "$COMMIT_INFO" ]; then
             MESSAGE="오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n\n 잔디🌱를 심었습니다!"
             curl -X POST \
               -H "Content-Type: application/json" \
               -d "{\"content\": \"$MESSAGE\"}" \
-              "https://discord.com/api/webhooks/1336742582201356361/b6hA4pZw82SSqJslIHxWnyFpfrY5MfPd4SGGTunvYITx8o5BvDzX6RDRw48KWgapzIRR"
+              "https://discord.com/api/webhooks/1337071280008200233/Pcdye9ifgfCQ_Cvb5aFes1T4w_OPyMm2up61EW5s_-4pFKjK6fbmNtdcykbiY1bFp8xB"
           else
             echo "No commits to notify."
           fi
