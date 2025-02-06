@@ -2,8 +2,8 @@ name: Commit Notifier
 
 on:
   schedule:
-    - cron: '0 15 * * *'  # 매일 00:00(KST) 실행 (UTC 기준 15:00)
-  workflow_dispatch:  # 수동 실행 추가
+    - cron: '0 15 * * *' # 매일 00:00(KST) 실행 (UTC 기준 15:00)
+  workflow_dispatch: # 수동 실행 추가
 
 jobs:
   send-discord-notification:
@@ -54,7 +54,7 @@ jobs:
 
           MAPPED_INFO=""
           for AUTHOR in "${!AUTHOR_COUNT[@]}"; do
-            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR] }"
+            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]} "
           done
 
           MAPPED_INFO=${MAPPED_INFO%17}
