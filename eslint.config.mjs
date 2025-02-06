@@ -38,7 +38,6 @@ const eslintConfig = [
       'react/jsx-boolean-value': ['warn', 'never'],
       'react/jsx-no-useless-fragment': 'warn',
       'react/self-closing-comp': 'warn',
-      'react-hooks/exhaustive-deps': 'warn',
 
       '@next/next/no-img-element': 'warn',
 
