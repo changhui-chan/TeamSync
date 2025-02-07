@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
     }
 
     const errStatus = errRes.status;
-
+    
     switch (errStatus) {
       case 401:
         errorToast('로그인 정보가 필요합니다.');
