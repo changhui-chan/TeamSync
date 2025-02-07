@@ -68,7 +68,7 @@ jobs:
             curl -X POST \
               -H "Content-Type: application/json" \
               -d "{\"content\": \"$MESSAGE\"}" \
-              "https://discord.com/api/webhooks/1337071280008200233/Pcdye9ifgfCQ_Cvb5aFes1T4w_OPyMm2up61EW5s_-4pFKjK6fbmNtdcykbiY1bFp8xB"
+              "https://discord.com/api/webhooks/1337421464034345083/cuL_6Qkbf5OMoZjiL04QkP8gzEJYaUl8aaiMnQUQuG0NaTejNsxSvTlJFInbiJZztSRY"
           else
             echo "No commits to notify."
           fi
