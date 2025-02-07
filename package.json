@@ -2,6 +2,7 @@
   "name": "coworkers",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "eslint --fix",
