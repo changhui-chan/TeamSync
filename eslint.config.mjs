@@ -4,7 +4,6 @@ import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
 import pluginQuery from '@tanstack/eslint-plugin-query';
 import configPrettier from 'eslint-config-prettier';
-import reactPlugin from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 import { fileURLToPath } from 'url';
@@ -24,7 +23,6 @@ const eslintConfig = [
   configPrettier,
   {
     plugins: {
-      react: reactPlugin,
       '@typescript-eslint': tseslint.plugin,
       'simple-import-sort': simpleImportSort,
     },
@@ -36,8 +34,6 @@ const eslintConfig = [
       '@typescript-eslint/consistent-type-imports': 'warn',
 
       'react/jsx-boolean-value': ['warn', 'never'],
-      'react/jsx-no-useless-fragment': 'warn',
-      'react/self-closing-comp': 'warn',
 
       '@next/next/no-img-element': 'warn',
 

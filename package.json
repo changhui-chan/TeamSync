@@ -2,6 +2,7 @@
   "name": "coworkers",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "eslint --fix",
@@ -46,7 +47,6 @@
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^15.14.0",
     "postcss": "^8",
