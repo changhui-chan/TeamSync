@@ -64,7 +64,7 @@ jobs:
         run: |
           COMMIT_INFO="${{ env.commit-info }}"
           if [ -n "$COMMIT_INFO" ]; then
-            MESSAGE="오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n\n 잔디🌱를 심었습니다!"
+            MESSAGE="오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n 잔디🌱를 심었습니다!"
             curl -X POST \
               -H "Content-Type: application/json" \
               -d "{\"content\": \"$MESSAGE\"}" \
