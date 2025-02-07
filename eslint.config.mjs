@@ -34,8 +34,6 @@ const eslintConfig = [
       '@typescript-eslint/consistent-type-imports': 'warn',
 
       'react/jsx-boolean-value': ['warn', 'never'],
-      'react/jsx-no-useless-fragment': 'warn',
-      'react/self-closing-comp': 'warn',
 
       '@next/next/no-img-element': 'warn',
 
