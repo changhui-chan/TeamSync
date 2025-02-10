@@ -5,7 +5,6 @@ enum OAuthProvider {
 }
 
 //post - /{teamId}/oauthApps
-
 export type CreateOAuthAppRequest = {
   appSecret: string;
   appKey: string;

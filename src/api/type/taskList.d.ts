@@ -27,7 +27,7 @@ export type UpdateTaskListRequest = {
 
 export type UpdateTaskListResponse = TaskListResponse;
 
-//delete -/{teamId}/goprsu / { groupId } / task - lists / { id }
+//delete -/{teamId}/goprsu/{ groupId }/task-lists/{id}
 export type DeleteTaskListRequest = DeleteRequest;
 
 //post - /{teamId}/groups/{groupId}/task-lists
