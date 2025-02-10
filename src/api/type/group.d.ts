@@ -33,23 +33,23 @@ interface GroupResponse {
 }
 
 //get - /{teamId}/groups/{id}
-type GetGroupParams = {
+export type GetGroupParams = {
   id: string;
 };
 
-type GetGroupResponse = GroupResponse & {
+export type GetGroupResponse = GroupResponse & {
   members: GroupMember[];
   taskLists: TaskListSummary[];
 };
 
 //patch - /{teamId}/groups/{id}
-type UpdateGroupParams = {
+export type UpdateGroupParams = {
   id: string;
 };
 
-type UpdateGroupRequest = GroupRequest;
+export type UpdateGroupRequest = GroupRequest;
 
-type UpdateGroupResponse = {
+export type UpdateGroupResponse = {
   teamId: string;
   updatedAt: string;
   createdAt: string;
@@ -59,56 +59,56 @@ type UpdateGroupResponse = {
 };
 
 //delete - /{teamId}/groups/{id}
-type DeleteGroupRequest = DeleteRequest;
+export type DeleteGroupRequest = DeleteRequest;
 
 //post - /{teamId}/groups
-type CreateGroupRequest = GroupRequest;
+export type CreateGroupRequest = GroupRequest;
 
-type CreateGroupResponse = GroupResponse;
+export type CreateGroupResponse = GroupResponse;
 
 //get - /{teamId}/groups/{id}/member/{memberUserId}
-type GetGroupMemberParams = {
+export type GetGroupMemberParams = {
   id: string;
   memberUserId: string;
 };
 
-type GetGroupMemberResponse = GroupMember;
+export type GetGroupMemberResponse = GroupMember;
 
 //delete - /{teamId}/groups/{id}/member/{memberUserId}
-type GroupMemberRequest = DeleteRequest & {
+export type GroupMemberRequest = DeleteRequest & {
   memberUserId: string;
 };
 
 //get - /{teamId}/groups/{id}/invitation
-type GetGroupInvitationParams = {
+export type GetGroupInvitationParams = {
   id: string;
 };
 
-type GetGroupInvitationResponse = string;
+export type GetGroupInvitationResponse = string;
 
 //post - /{teamId}/groups/accept-invitation
-type AcceptGroupInvitationRequest = {
+export type AcceptGroupInvitationRequest = {
   userEmail: string;
   token: string;
 };
 
-type AcceptGroupInvitationResponse = {
+export type AcceptGroupInvitationResponse = {
   groupId: number;
 };
 
 //post - /{teamId}/groups/{id}/member
-type AddGroupMemberRequest = {
+export type AddGroupMemberRequest = {
   userEmail: string;
 };
 
-type AddGroupMemberResponse = {
+export type AddGroupMemberResponse = {
   groupId: number;
 };
 
 //get - /{teamId}/groups/{id}/tasks
-type GetGroupTasksParams = {
+export type GetGroupTasksParams = {
   id: string;
   date?: string;
 };
 
-type GroupTaskResponse = TaskResponse[];
+export type GroupTaskResponse = TaskResponse[];

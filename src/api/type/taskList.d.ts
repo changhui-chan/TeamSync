@@ -6,47 +6,47 @@ import type {
 } from './shared';
 
 //get - /{teamId}/groups/{groupId}/task-lists/{id}
-type GetTaskListParams = {
+export type GetTaskListParams = {
   id: number;
   date?: string;
 };
 
-type GetTaskListResponse = TaskListResponse & {
+export type GetTaskListResponse = TaskListResponse & {
   tasks: Task[];
 };
 
 //patch - /{teamId}/groups/{groupId}/task-lists/{id}
-type UpdateTaskListParams = {
+export type UpdateTaskListParams = {
   groupId: number;
   id: number;
 };
 
-type UpdateTaskListRequest = {
+export type UpdateTaskListRequest = {
   name: string;
 };
 
-type UpdateTaskListResponse = TaskListResponse;
+export type UpdateTaskListResponse = TaskListResponse;
 
 //delete -/{teamId}/goprsu / { groupId } / task - lists / { id }
-type DeleteTaskListRequest = DeleteRequest;
+export type DeleteTaskListRequest = DeleteRequest;
 
 //post - /{teamId}/groups/{groupId}/task-lists
-type CreateTaskListRequest = {
+export type CreateTaskListRequest = {
   name: string;
 };
 
-type CreateTaskListParams = {
+export type CreateTaskListParams = {
   groupId: string;
 };
 
-type CreateTaskListResponse = TaskListResponse;
+export type CreateTaskListResponse = TaskListResponse;
 
 //patch - /{teamId}/groups/{groupId}/task-lists/{id}/order
-type UpdateTaskListOrderRequest = {
+export type UpdateTaskListOrderRequest = {
   displayIndex: number;
 };
 
-type UpdateTaskListOrderParams = {
+export type UpdateTaskListOrderParams = {
   groupId: string;
   id: string;
 };

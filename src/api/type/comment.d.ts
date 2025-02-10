@@ -9,22 +9,22 @@ type TaskCommentsResponse =
   | { code: 403 | 404; data: MessageResponse };
 
 //get - /{teamId}/tasks/{taskId}/comments
-type GetTaskCommentsParams = {
+export type GetTaskCommentsParams = {
   taskId: string;
 };
 
-type GetTaskCommentsAPIResponse = TaskCommentsResponse;
+export type GetTaskCommentsAPIResponse = TaskCommentsResponse;
 
 //post - /{teamId}/tasks/{taskId}/comments
-type CreateTaskCommentParams = {
+export type CreateTaskCommentParams = {
   taskId: string;
 };
 
-type CreateTaskCommentRequest = {
+export type CreateTaskCommentRequest = {
   content: string;
 };
 
-type CreateTaskCommentResponse = {
+export type CreateTaskCommentResponse = {
   content: string;
   updatedAt: string;
   createdAt: string;
@@ -33,19 +33,19 @@ type CreateTaskCommentResponse = {
 };
 
 //patch - /{teamId}/tasks/{taskId}/comments/{commentId}
-type UpdateTaskCommentParams = {
+export type UpdateTaskCommentParams = {
   commentId: string;
 };
 
-type UpdateTaskCommentRequest = {
+export type UpdateTaskCommentRequest = {
   content: string;
 };
 
-type UpdateTaskCommentAPIResponse = TaskCommentsResponse;
+export type UpdateTaskCommentAPIResponse = TaskCommentsResponse;
 
 //delete - /{teamId}/tasks/{taskId}/comments/{commentId}
-type DeleteTaskCommentRequest = {
+export type DeleteTaskCommentRequest = {
   commentId: string;
 };
 
-type DeleteTaskCommentAPIResponse = TaskCommentsResponse;
+export type DeleteTaskCommentAPIResponse = TaskCommentsResponse;

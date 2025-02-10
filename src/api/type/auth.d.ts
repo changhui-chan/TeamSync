@@ -20,39 +20,39 @@ enum SocialAuthProvider {
 }
 
 //post - /{teamId}/auth/signUp
-type SignUpRequest = {
+export type SignUpRequest = {
   email: string;
   nickname: string;
   password: string;
   passwordConfirmation: string;
 };
 
-type SignUpResponse = AuthResponse;
+export type SignUpResponse = AuthResponse;
 
 //post - /{teamId}/auth/signIn
-type SignInRequest = {
+export type SignInRequest = {
   email: string;
   password: string;
 };
 
-type SignInResponse = AuthResponse;
+export type SignInResponse = AuthResponse;
 
 //post - /{teamId}/auth/refresh-token
-type RefreshTokenRequest = {
+export type RefreshTokenRequest = {
   refreshToken: string;
 };
 
-type RefreshTokenResponse = {
+export type RefreshTokenResponse = {
   accessToken: string;
 };
 
 //post - /{teamId}/auth/signIn/{provider}
-type SocialSignInProvider = SocialAuthProvider;
+export type SocialSignInProvider = SocialAuthProvider;
 
-type SocialSignInRequest = {
+export type SocialSignInRequest = {
   state: string;
   redirectUri: string;
   token: string;
 };
 
-type SocialSignInResponse = AuthResponse;
+export type SocialSignInResponse = AuthResponse;

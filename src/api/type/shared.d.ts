@@ -1,23 +1,23 @@
-enum Frequency {
+export enum Frequency {
   DAILY = 'DAILY',
   WEEKLY = 'WEEKLY',
   MONTHLY = 'MONTHLY',
   ONCE = 'ONCE',
 }
 
-interface User {
+export interface User {
   image: string;
   nickname: string;
   id: number;
 }
 
-interface Writer {
+export interface Writer {
   image: string;
   nickname: string;
   id: number;
 }
 
-interface TaskResponse {
+export interface TaskResponse {
   doneBy: {
     user: User;
   };
@@ -35,7 +35,7 @@ interface TaskResponse {
   id: number;
 }
 
-interface TaskListResponse {
+export interface TaskListResponse {
   displayIndex: number;
   groupId: number;
   updatedAt: string;
@@ -44,7 +44,7 @@ interface TaskListResponse {
   id: number;
 }
 
-interface TaskRecurringResponse {
+export interface TaskRecurringResponse {
   recurring: {
     writerId: number;
     groupId: number;
@@ -61,10 +61,10 @@ interface TaskRecurringResponse {
   };
 }
 
-interface DeleteRequest {
+export interface DeleteRequest {
   id: number;
 }
 
-type MessageResponse = {
+export type MessageResponse = {
   message: string;
 };

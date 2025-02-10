@@ -1,12 +1,12 @@
 import type { Frequency } from './shared';
 
 //post - /{teamId}/groups/{groupId}/task-lists/{taskListId}/recurring
-type CreateRecurringTaskParams = {
+export type CreateRecurringTaskParams = {
   groupId: string;
   taskListId: string;
 };
 
-type CreateRecurringTaskRequest = {
+export type CreateRecurringTaskRequest = {
   name: string;
   description: string;
   startDate: string;
@@ -14,7 +14,7 @@ type CreateRecurringTaskRequest = {
   monthDay: number;
 };
 
-type CreateRecurringTaskResponse = {
+export type CreateRecurringTaskResponse = {
   writerId: number;
   groupId: number;
   taskListId: number;

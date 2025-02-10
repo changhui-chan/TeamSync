@@ -1,7 +1,7 @@
 import type { DeleteRequest, TaskRecurringResponse } from './shared';
 
 //post - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks
-type CreateTaskRequest = {
+export type CreateTaskRequest = {
   name: string;
   description: string;
   startDate: string;
@@ -9,41 +9,41 @@ type CreateTaskRequest = {
   monthDay: number;
 };
 
-type CreateTaskParams = {
+export type CreateTaskParams = {
   groupId: string;
   taskListId: string;
 };
 
-type CreateTaskResponse = TaskRecurringResponse;
+export type CreateTaskResponse = TaskRecurringResponse;
 
 //get -/{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks
-interface GetTasksParams {
+export interface GetTasksParams {
   groupId: string;
   taskListId: string;
   date?: string;
 }
 
-type GetTasksResponse = TaskResponse[];
+export type GetTasksResponse = TaskResponse[];
 
 //get - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}
-type GetTaskParams = {
+export type GetTaskParams = {
   taskId: string;
 };
 
-type GetTaskResponse = TaskResponse;
+export type GetTaskResponse = TaskResponse;
 
 //patch - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}
-type UpdateTaskParams = {
+export type UpdateTaskParams = {
   taskId: string;
 };
 
-type UpdateTaskRequest = {
+export type UpdateTaskRequest = {
   name: string;
   description: string;
   done: boolean;
 };
 
-type UpdateTaskResponse = {
+export type UpdateTaskResponse = {
   displayIndex: number;
   writerId: number;
   userId: number;
@@ -59,19 +59,19 @@ type UpdateTaskResponse = {
 };
 
 //delete - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}
-type DeleteTasksRequest = DeleteRequest;
+export type DeleteTasksRequest = DeleteRequest;
 
 //patch = /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{id}/order
-type UpdateTaskOrderParams = {
+export type UpdateTaskOrderParams = {
   taskListId: string;
   id: string;
 };
 
-type UpdateTaskOrderRequest = {
+export type UpdateTaskOrderRequest = {
   displayIndex: number;
 };
 
 //delete - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}/recurring/{recurringId}
-type DeleteRecurringTaskRequest = {
+export type DeleteRecurringTaskRequest = {
   recurringId: string;
 };

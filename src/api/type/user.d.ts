@@ -35,7 +35,7 @@ interface TaskDone {
 }
 
 // get - /{teamId}/user
-type GetUser = {
+export type GetUser = {
   teamId: string;
   image: string;
   nickname: string;
@@ -47,45 +47,45 @@ type GetUser = {
 };
 
 // patch - /{teamId}/user
-type UpdateUserProfileRequest = {
+export type UpdateUserProfileRequest = {
   nickname: string;
   image: string;
 };
 
-type UpdateUserResponse = MessageResponse;
+export type UpdateUserResponse = MessageResponse;
 
 //get - /{teamId}/user/groups
-type GetUserGroupsResponse = Group[];
+export type GetUserGroupsResponse = Group[];
 
 //get - /{teamId}/user/memberships
-type GetUserMembershipsResponse = Membership[];
+export type GetUserMembershipsResponse = Membership[];
 
 //get - /{teamId}/user/history
-type GetUserHistoryResponse = {
+export type GetUserHistoryResponse = {
   tasksDone: TaskDone[];
 };
 
 //post - /{teamId}/user/send-reset-password-email
-type SendResetPasswordEmailRequest = {
+export type SendResetPasswordEmailRequest = {
   email: string;
   redirectUrl: string;
 };
 
-type SendResetPasswordEmailResponse = MessageResponse;
+export type SendResetPasswordEmailResponse = MessageResponse;
 
 //patch - /{teamId}/user/reset-password
-type ResetPasswordRequest = {
+export type ResetPasswordRequest = {
   passwordConfirmation: string;
   password: string;
   token: string;
 };
 
-type UpdateResetPasswordResponse = MessageResponse;
+export type UpdateResetPasswordResponse = MessageResponse;
 
 //patch - /{teamId}/user/password
-type UpdatePasswordRequest = {
+export type UpdatePasswordRequest = {
   passwordConfirmation: string;
   password: string;
 };
 
-type UpdatePasswordResponse = MessageResponse;
+export type UpdatePasswordResponse = MessageResponse;

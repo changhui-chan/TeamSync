@@ -34,39 +34,39 @@ type ArticleResponse =
   | { code: 403 | 404; data: MessageResponse };
 
 //post - /{teamId}/articles
-type CreateArticleRequest = ArticleRequest;
+export type CreateArticleRequest = ArticleRequest;
 
-type CreateArticleResponse = Articles200Response;
+export type CreateArticleResponse = Articles200Response;
 
 //get - /{teamId}/articles
-type GetArticlesParams = {
+export type GetArticlesParams = {
   page?: number;
   pageSize?: number;
   orderBy?: string;
   keyword?: string;
 };
 
-type GetArticlesResponse = {
+export type GetArticlesResponse = {
   totalCount: number;
   list: Articles200Response[];
 };
 
 //get - /{teamId}/articles/{articleId}
-type GetArticleParams = ArticleParams;
+export type GetArticleParams = ArticleParams;
 
-type GetArticleResponse = ArticleResponse;
+export type GetArticleResponse = ArticleResponse;
 
 //patch - /{teamId}/articles/{articleId}
-type UpdateArticleParams = ArticleParams;
+export type UpdateArticleParams = ArticleParams;
 
-type UpdateArticleRequest = ArticleRequest;
+export type UpdateArticleRequest = ArticleRequest;
 
-type UpdateArticleResponse = ArticleResponse;
+export type UpdateArticleResponse = ArticleResponse;
 
 //delete - /{teamId}/articles/{articleId}
-type DeleteArticleRequest = ArticleParams;
+export type DeleteArticleRequest = ArticleParams;
 
-type DeleteArticleResponse =
+export type DeleteArticleResponse =
   | {
       code: 200;
       data: { id: number };
@@ -74,11 +74,11 @@ type DeleteArticleResponse =
   | { code: 403 | 404; data: MessageResponse };
 
 //post - /{teamId}/articles/{articleId}/like
-type CreateArticleLikeParams = ArticleParams;
+export type CreateArticleLikeParams = ArticleParams;
 
-type CreateArticleLikeRequest = ArticleResponse;
+export type CreateArticleLikeRequest = ArticleResponse;
 
 //delete - /{teamId}/articles/{articleId}/like
-type DeleteArticleLikeRequest = ArticleParams;
+export type DeleteArticleLikeRequest = ArticleParams;
 
-type DeleteArticleLikeResponse = ArticleResponse;
+export type DeleteArticleLikeResponse = ArticleResponse;

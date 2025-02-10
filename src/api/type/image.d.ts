@@ -1,8 +1,8 @@
 //post - /{teamId}/images/upload
-type UploadImageRequest = {
+export type UploadImageRequest = {
   image: File;
 };
 
-type UploadImageResponse = {
+export type UploadImageResponse = {
   url: string;
 };
