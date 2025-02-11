@@ -1,4 +1,8 @@
+'use client';
+
 import Link from 'next/link';
+import { BiSolidCalendarAlt } from 'react-icons/bi';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 import TaskItem from '@/feature/[teamid]/tasklist/TaskItem';
 
@@ -17,10 +21,16 @@ const TasklistPage = () => {
             <div className="flex items-center gap-3">
               <p className="text-base font-medium">2월 7일 (금)</p>
               <div className="flex gap-1">
-                <button className="h-4 w-4 rounded-full bg-black-300"></button>
-                <button className="h-4 w-4 rounded-full bg-black-300"></button>
+                <button className="h-4 w-4 rounded-full bg-black-300">
+                  <IoIosArrowBack className="m-auto h-3 w-3 text-white-500" />
+                </button>
+                <button className="h-4 w-4 rounded-full bg-black-300">
+                  <IoIosArrowForward className="m-auto h-3 w-3 text-white-500" />
+                </button>
               </div>
-              <button className="h-6 w-6 rounded-full bg-black-300"></button>
+              <button className="h-6 w-6 rounded-full bg-black-300">
+                <BiSolidCalendarAlt className="m-auto h-4 w-4 text-white-500" />
+              </button>
             </div>
             <p className="font-normal text-sm text-green-300">
               + 새로운 목록 추가하기
