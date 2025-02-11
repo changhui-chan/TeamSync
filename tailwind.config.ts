@@ -31,6 +31,8 @@ export default {
         100: '#fff', //기존 배경색 및 다크모드 글씨
         200: '#F8F9Fa',
         300: '#E8EAEd;',
+        400: '#bbc1c9', //disabled
+        500: '#98a0a6', //default
       },
       black: {
         100: '#101218', //다크모드 배경
