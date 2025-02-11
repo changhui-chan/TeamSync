@@ -1,44 +1,31 @@
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  type: string;
-  placeholder?: string;
   className: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   isError: boolean;
   noneBorder: string;
   errorBorder: string;
   errorMessage?: string;
+  errorColor?: string;
 }
 
 const Input = ({
   name,
-  type,
-  placeholder,
   className,
-  value,
-  onChange,
-  onBlur,
   isError,
   errorBorder,
   noneBorder,
   errorMessage,
+  errorColor,
+  ...rest
 }: InputProps) => {
   return (
     <div>
       <input
         name={name}
-        type={type}
         className={`${className} ${isError ? errorBorder : noneBorder}`}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
+        {...rest}
       />
-      {isError && errorMessage && (
-        <p className="text-sm text-error">{errorMessage}</p>
-      )}
+      {isError && errorMessage && <p className={errorColor}>{errorMessage}</p>}
     </div>
   );
 };
