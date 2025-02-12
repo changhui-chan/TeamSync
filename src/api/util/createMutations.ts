@@ -1,5 +1,5 @@
 import { requestData } from './apiService';
-import { createMutationOptions } from './mutationHelpers';
+import { createMutationOptions } from './queryHelpers';
 
 export const createMutations = <P, Q, R>(
   method: 'post' | 'delete' | 'patch',
