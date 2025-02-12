@@ -1,4 +1,9 @@
-import type { Metadata } from 'next';
+'use client';
+
+import { useMemo } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 
@@ -15,23 +20,27 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Coworkers',
-  description: 'Coworkers Page',
-};
+// export const metadata: Metadata = {
+//   title: 'Coworkers',
+//   description: 'Coworkers Page',
+// };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = useMemo(() => new QueryClient(), []);
   return (
     <html lang="ko">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <ToastContainer position="top-right" autoClose={3000} />
+        <QueryClientProvider client={queryClient}>
+          {children}
+          <ToastContainer position="top-right" autoClose={3000} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </body>
     </html>
   );
