@@ -1,13 +1,7 @@
 import type { QueryKey } from '@tanstack/react-query';
-import { QueryClient, queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnMount: 'always',
-    },
-  },
-});
+import { queryClient } from './defaultOptions';
 
 export const createQueryOptions = <R>(
   queryKey: QueryKey,
@@ -18,6 +12,7 @@ export const createQueryOptions = <R>(
 
   return queryOptions({
     ...(queryClient.getDefaultOptions().queries as R),
+
     queryKey,
     queryFn,
     initialData: () => {
@@ -27,18 +22,11 @@ export const createQueryOptions = <R>(
   });
 };
 
-// export const createQueryOptions = <R>(
-//   queryKey: QueryKey,
-//   queryFn: () => Promise<R>,
-//   customOptions = {}
-// ) => {
-//   const cachedData = queryClient.getQueryData<R>(queryKey);
-
-//   return {
-//     ...queryClient.getDefaultOptions().queries,
-//     queryKey,
-//     queryFn,
-//     initialData: () => cachedData || ([] as R),
-//     ...customOptions,
-//   };
-// };
+export const createMutationOptions = <R>(
+  mutationFn: () => Promise<R>,
+  customOptions = {}
+) => ({
+  ...(queryClient.getDefaultOptions().queries as R),
+  mutationFn,
+  ...customOptions,
+});
