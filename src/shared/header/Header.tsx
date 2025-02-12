@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const Header = () => {
+  const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isLandingPage, setIsLandingPage] = useState(false);
 
   return (
     <header className="sticky top-0 flex h-60 w-max justify-between">
-      {isLandingPage ? (
+      {router.pathname === '/' ? (
         <div>
           <div>Logo 이미지</div>
           <div></div>
