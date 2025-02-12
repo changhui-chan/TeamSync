@@ -1,17 +1,17 @@
 import type { DeleteRequest, TaskRecurringResponse } from './shared';
 
 //post - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks
+export type CreateTaskParams = {
+  groupId: string;
+  taskListId: string;
+};
+
 export type CreateTaskRequest = {
   name: string;
   description: string;
   startDate: string;
   frequencyType: Frequency;
   monthDay: number;
-};
-
-export type CreateTaskParams = {
-  groupId: string;
-  taskListId: string;
 };
 
 export type CreateTaskResponse = TaskRecurringResponse;
@@ -59,7 +59,7 @@ export type UpdateTaskResponse = {
 };
 
 //delete - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}
-export type DeleteTasksRequest = DeleteRequest;
+export type DeleteTasksParams = DeleteRequest;
 
 //patch = /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{id}/order
 export type UpdateTaskOrderParams = {
@@ -72,6 +72,6 @@ export type UpdateTaskOrderRequest = {
 };
 
 //delete - /{teamId}/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}/recurring/{recurringId}
-export type DeleteRecurringTaskRequest = {
+export type DeleteRecurringTaskParams = {
   recurringId: string;
 };

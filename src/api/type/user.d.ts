@@ -35,7 +35,7 @@ interface TaskDone {
 }
 
 // get - /{teamId}/user
-export type GetUser = {
+export type GetUserResponse = {
   teamId: string;
   image: string;
   nickname: string;

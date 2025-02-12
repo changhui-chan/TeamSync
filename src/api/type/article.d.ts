@@ -64,7 +64,7 @@ export type UpdateArticleRequest = ArticleRequest;
 export type UpdateArticleResponse = ArticleResponse;
 
 //delete - /{teamId}/articles/{articleId}
-export type DeleteArticleRequest = ArticleParams;
+export type DeleteArticleParams = ArticleParams;
 
 export type DeleteArticleResponse =
   | {
@@ -76,9 +76,9 @@ export type DeleteArticleResponse =
 //post - /{teamId}/articles/{articleId}/like
 export type CreateArticleLikeParams = ArticleParams;
 
-export type CreateArticleLikeRequest = ArticleResponse;
+export type CreateArticleLikeResponse = ArticleResponse;
 
 //delete - /{teamId}/articles/{articleId}/like
-export type DeleteArticleLikeRequest = ArticleParams;
+export type DeleteArticleLikeParams = ArticleParams;
 
 export type DeleteArticleLikeResponse = ArticleResponse;

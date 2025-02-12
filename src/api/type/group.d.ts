@@ -59,7 +59,7 @@ export type UpdateGroupResponse = {
 };
 
 //delete - /{teamId}/groups/{id}
-export type DeleteGroupRequest = DeleteRequest;
+export type DeleteGroupParams = DeleteRequest;
 
 //post - /{teamId}/groups
 export type CreateGroupRequest = GroupRequest;
@@ -75,7 +75,7 @@ export type GetGroupMemberParams = {
 export type GetGroupMemberResponse = GroupMember;
 
 //delete - /{teamId}/groups/{id}/member/{memberUserId}
-export type GroupMemberRequest = DeleteRequest & {
+export type GroupMemberParams = DeleteRequest & {
   memberUserId: string;
 };
 

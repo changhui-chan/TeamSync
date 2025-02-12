@@ -27,16 +27,15 @@ export type UpdateTaskListRequest = {
 
 export type UpdateTaskListResponse = TaskListResponse;
 
-//delete -/{teamId}/goprsu/{ groupId }/task-lists/{id}
-export type DeleteTaskListRequest = DeleteRequest;
+//delete -/{teamId}/groups/{groupId}/task-lists/{id}
+export type DeleteTaskListParams = DeleteRequest;
 
 //post - /{teamId}/groups/{groupId}/task-lists
-export type CreateTaskListRequest = {
-  name: string;
-};
-
 export type CreateTaskListParams = {
   groupId: string;
+};
+export type CreateTaskListRequest = {
+  name: string;
 };
 
 export type CreateTaskListResponse = TaskListResponse;

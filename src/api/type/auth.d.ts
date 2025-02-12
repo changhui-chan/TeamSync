@@ -47,7 +47,7 @@ export type RefreshTokenResponse = {
 };
 
 //post - /{teamId}/auth/signIn/{provider}
-export type SocialSignInProvider = SocialAuthProvider;
+export type SocialSignInParams = SocialAuthProvider;
 
 export type SocialSignInRequest = {
   state: string;

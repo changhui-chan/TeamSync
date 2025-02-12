@@ -53,7 +53,7 @@ export type UpdateCommentRequest = {
 export type UpdateCommentResponse = CommentResponse;
 
 // delete - /{teamId}/comments/{commentId}
-type DeleteCommentRequest = {
+type DeleteCommentParams = {
   commentId: string;
 };
 

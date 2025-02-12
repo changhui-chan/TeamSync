@@ -44,7 +44,7 @@ export type UpdateTaskCommentRequest = {
 export type UpdateTaskCommentAPIResponse = TaskCommentsResponse;
 
 //delete - /{teamId}/tasks/{taskId}/comments/{commentId}
-export type DeleteTaskCommentRequest = {
+export type DeleteTaskCommentParams = {
   commentId: string;
 };
 
