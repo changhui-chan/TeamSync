@@ -1,11 +1,16 @@
 import axiosInstance from '@/lib/axiosInstance';
 
-export const getAllData = async <R, P>(url: string, params?: P) => {
-  const response = await axiosInstance.get<R>(url, { params });
-  return response.data;
-};
-
-export const getDetailData = async <R>(url: string, id?: string) => {
-  const response = await axiosInstance.get<R>(`${url}/${id}`);
+export const requestData = async <P, Q, R>(
+  method: 'get' | 'post' | 'delete' | 'patch',
+  url: string,
+  data: Q,
+  params?: P
+) => {
+  const response = await axiosInstance.request<R>({
+    method,
+    url,
+    data,
+    params,
+  });
   return response.data;
 };
