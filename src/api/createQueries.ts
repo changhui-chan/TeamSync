@@ -1,23 +1,18 @@
 import type { QueryKey } from '@tanstack/react-query';
 
-import { getAllData, getDetailData } from './apiServive';
+import { requestData } from './apiService';
 import { createQueryOptions } from './queryHelpers';
 
-export const createQueries = <R, P>(url: string, params?: P) => ({
-  all: () => {
-    const queryKey: QueryKey = params ? [`${url}`, params] : [`${url}`];
+export const createQueries = <P, R>(
+  url: string,
+  params?: P,
+  customOptions = {}
+) => {
+  const queryKey: QueryKey = params ? [`${url}`, params] : [`${url}`];
 
-    return createQueryOptions(
-      queryKey,
-      async (): Promise<R> => getAllData(url, params)
-    );
-  },
-  detail: (id: string) => {
-    const queryKey: QueryKey = params ? [`${url}`, params] : [`${url}`, id];
-
-    return createQueryOptions(
-      queryKey,
-      async (): Promise<R> => getDetailData(url, id)
-    );
-  },
-});
+  return createQueryOptions(
+    queryKey,
+    async (): Promise<R> => requestData('get', url, params),
+    customOptions
+  );
+};
