@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import Calendar from 'react-calendar';
+import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 
-// import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import './myCalendar.css';
+// module css
 
 interface CalendarProps {
   className: string;
@@ -14,13 +15,11 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const PrevIcon = () => {
-  return <div></div>;
-  // return <BiSolidLeftArrow />;
+  return <BiSolidLeftArrow />;
 };
 
 const NextIcon = () => {
-  return <div></div>;
-  // return <BiSolidRightArrow />;
+  return <BiSolidRightArrow />;
 };
 
 const MyCalendar = ({ className, ...rest }: CalendarProps) => {
@@ -30,7 +29,7 @@ const MyCalendar = ({ className, ...rest }: CalendarProps) => {
   // onViewChange 에서 next/prev만 남기고 막기
 
   return (
-    <div className={'w-[400px]'} {...rest}>
+    <div className={className} {...rest}>
       <Calendar
         onChange={onChange}
         value={value}
