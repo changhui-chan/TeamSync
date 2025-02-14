@@ -22,25 +22,29 @@ jobs:
             case "$1" in
               "김지윤") echo "지윤" ;;
               "changhui-chan") echo "창희" ;;
-              "수진") echo "수진" ;;
-              "minim1nh") echo "수진" ;;
-              "박지민") echo "지민" ;;
+              "수진" | "minim1nh") echo "수진" ;;
+              "박지민" | "jiminp00") echo "지민" ;;
               *) echo "$1" ;;  # 매칭되지 않으면 원래 이름 반환
             esac
           }
 
-          # 어제 날짜를 기준으로 설정
-          YESTERDAY=$(TZ="Asia/Seoul" date --date='1 day ago' +'%Y-%m-%d')
-          echo "어제 날짜: $YESTERDAY"
-          echo COMMIT_INFO=$(TZ="Asia/Seoul" git log --since="$YESTERDAY 00:00:00" --until="$YESTERDAY 23:59:59" --pretty=format:"%an%n")
 
-          # 어제 날짜 기준으로 커밋 내역 출력 (한국 시간 사용)
-          COMMIT_INFO=$(TZ="Asia/Seoul" git log --since="$YESTERDAY 00:00:00" --until="$YESTERDAY 23:59:59" --pretty=format:"%an%n")
+          START=$(TZ="Asia/Seoul" date --date=' yesterday 00:00:00' +'%Y-%m-%d %H:%M:%S')
+          END=$(TZ="Asia/Seoul" date --date=' yesterday 23:59:00' +'%Y-%m-%d %H:%M:%S')
+
+          echo "자정: $START"
+          echo " 23시 59분: $END"
+
+          COMMIT_INFO=$(TZ="Asia/Seoul" git log --since="$START" --until="$END" --pretty=format:"%an%n")
 
           if [ -z "$COMMIT_INFO" ]; then
-            echo "No commits yesterday."
+            echo "No commits found."
             exit 0
           fi
+
+          # 커밋 정보 디버깅
+          echo "커밋 내역:"
+          echo "$COMMIT_INFO"
 
           declare -A AUTHOR_COUNT
 
@@ -55,7 +59,7 @@ jobs:
           # 작업자별 커밋 수 출력
           MAPPED_INFO=""
           for AUTHOR in "${!AUTHOR_COUNT[@]}"; do
-            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]}\n"
+            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]}"
           done
 
           echo "commit-info=$MAPPED_INFO" >> $GITHUB_ENV
@@ -64,7 +68,7 @@ jobs:
         run: |
           COMMIT_INFO="${{ env.commit-info }}"
           if [ -n "$COMMIT_INFO" ]; then
-            MESSAGE="오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n\n 잔디🌱를 심었습니다!"
+            MESSAGE="오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n 잔디🌱를 심었습니다!"
             curl -X POST \
               -H "Content-Type: application/json" \
               -d "{\"content\": \"$MESSAGE\"}" \
