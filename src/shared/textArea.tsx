@@ -1,4 +1,3 @@
-'use client';
 import { useState } from 'react';
 
 interface TextareaProps
@@ -9,7 +8,7 @@ interface TextareaProps
   currentCount?: number;
   errorMessage?: string;
   countCss?: string;
-  textAreaCss: string;
+  labelCss: string;
 }
 
 const TextArea = ({
@@ -17,7 +16,7 @@ const TextArea = ({
   className,
   fullCount,
   countCss,
-  textAreaCss,
+  labelCss,
   ...rest
 }: TextareaProps) => {
   const [text, setText] = useState<string>('');
@@ -31,20 +30,21 @@ const TextArea = ({
   };
 
   return (
-    <div className={`${textAreaCss} relative`}>
+    <label
+      className={`${labelCss} flex h-full flex-col border`}
+      htmlFor="text-area"
+    >
       <textarea
         name={name}
-        className={`${className} h-full w-full resize-none`}
+        className={`${className} resize-none focus:outline-none`}
         value={text}
         onChange={handleChange}
         {...rest}
       />
-      <div className={`${countCss} absolute bottom-1 right-3 text-sm`}>
-        <span>
-          {text.length}/{fullCount}
-        </span>
-      </div>
-    </div>
+      <p className={`${countCss} self-end`}>
+        {text.length}/{fullCount}
+      </p>
+    </label>
   );
 };
 
