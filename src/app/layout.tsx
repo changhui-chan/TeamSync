@@ -32,6 +32,7 @@ export default function RootLayout({
       >
         {children}
         <ToastContainer position="top-right" autoClose={3000} />
+        <div id="modal-root"></div>
       </body>
     </html>
   );
