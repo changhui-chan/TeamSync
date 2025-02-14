@@ -10,7 +10,15 @@ import { handleBackdropClick } from '@/util/clickHandlers';
 
 import { useModal } from './hook/useModal';
 
-export const Modal = ({ children }: { children: ReactNode }) => {
+export const Modal = ({
+  children,
+  overlay = 'modal-overlay',
+  modal = 'modal',
+}: {
+  children: ReactNode;
+  overlay?: string;
+  modal?: string;
+}) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { modalState, close } = useModal();
@@ -24,14 +32,14 @@ export const Modal = ({ children }: { children: ReactNode }) => {
 
   return createPortal(
     <div
-      className="modal-overlay"
+      className={overlay}
       onClick={(e) => handleBackdropClick(e, close)}
       tabIndex={-1}
       role="dialog"
       aria-modal="true"
       ref={modalRef}
     >
-      <div className="modal">
+      <div className={modal}>
         <div className="modal-content">{children}</div>
       </div>
     </div>,
