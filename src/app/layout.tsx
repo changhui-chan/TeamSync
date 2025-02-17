@@ -34,6 +34,7 @@ export default function RootLayout({
       >
         <QueryProvider> {children}</QueryProvider>
         <ToastContainer position="top-right" autoClose={3000} />
+        <div id="modal-root"></div>
       </body>
     </html>
   );
