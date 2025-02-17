@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 
+import { QueryProvider } from './queryProvider';
+
 import './globals.css';
 import 'react-toastify/ReactToastify.css';
 
@@ -30,8 +32,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <QueryProvider> {children}</QueryProvider>
         <ToastContainer position="top-right" autoClose={3000} />
+        <div id="modal-root"></div>
       </body>
     </html>
   );

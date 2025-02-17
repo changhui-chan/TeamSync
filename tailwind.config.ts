@@ -30,7 +30,7 @@ export default {
       white: {
         100: '#fff', //기존 배경색 및 다크모드 글씨
         200: '#F8F9Fa',
-        300: '#E8EAEd;',
+        300: '#E8EAEd',
         400: '#bbc1c9', //disabled
         500: '#98a0a6', //default
       },
@@ -51,6 +51,15 @@ export default {
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
+    },
+    animation: {
+      'fade-in': 'fadeInBottomToTop 0.3s ease-out',
+    },
+    keyframes: {
+      fadeInBottomToTop: {
+        '0%': { opacity: '0', transform: 'translateY(20px)' },
+        '100%': { opacity: '1', transform: 'translateY(0)' },
+      },
     },
   },
   plugins: [],
