@@ -22,24 +22,29 @@ jobs:
             case "$1" in
               "김지윤") echo "지윤" ;;
               "changhui-chan") echo "창희" ;;
-              "수진") echo "수진" ;;
-              "minim1nh") echo "수진" ;;
-              "박지민") echo "지민" ;;
+              "수진" | "minim1nh") echo "수진" ;;
+              "박지민" | "jiminp00") echo "지민" ;;
               *) echo "$1" ;;  # 매칭되지 않으면 원래 이름 반환
             esac
           }
 
-          # 어제 날짜 설정 (한국 시간 기준)
-          YESTERDAY=$(TZ="Asia/Seoul" date --date='1 day ago' +'%Y-%m-%d')
-          echo "어제 날짜: $YESTERDAY"
 
-          # 어제 날짜 기준으로 커밋 내역 가져오기
-          COMMIT_INFO=$(TZ="Asia/Seoul" git log --since="$YESTERDAY 00:00:00" --until="$YESTERDAY 23:59:59" --pretty=format:"%an%n")
+          START=$(TZ="Asia/Seoul" date --date=' yesterday 00:00:00' +'%Y-%m-%d %H:%M:%S')
+          END=$(TZ="Asia/Seoul" date --date=' yesterday 23:59:00' +'%Y-%m-%d %H:%M:%S')
+
+          echo "자정: $START"
+          echo " 23시 59분: $END"
+
+          COMMIT_INFO=$(TZ="Asia/Seoul" git log --since="$START" --until="$END" --pretty=format:"%an%n")
 
           if [ -z "$COMMIT_INFO" ]; then
-            echo "No commits yesterday."
+            echo "No commits found."
             exit 0
           fi
+
+          # 커밋 정보 디버깅
+          echo "커밋 내역:"
+          echo "$COMMIT_INFO"
 
           declare -A AUTHOR_COUNT
 
@@ -54,49 +59,20 @@ jobs:
           # 작업자별 커밋 수 출력
           MAPPED_INFO=""
           for AUTHOR in "${!AUTHOR_COUNT[@]}"; do
-            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]}\n"
+            MAPPED_INFO+="$AUTHOR: ${AUTHOR_COUNT[$AUTHOR]}"
           done
 
-          # 환경 변수 저장
-          {
-            echo "commit-info<<EOF"
-            echo -e "$MAPPED_INFO"
-            echo "EOF"
-          } >> "$GITHUB_ENV"
-
-      - name: Check if webhook.env exists
-        run: |
-          if [ -f webhook.env ]; then
-            echo "webhook.env 파일이 존재합니다."
-          else
-            echo "❌ webhook.env 파일이 없습니다!"
-            exit 1
-          fi
-
-      - name: Load environment variables
-        run: |
-          set -a
-          source webhook.env
-          set +a
+          echo "commit-info=$MAPPED_INFO" >> $GITHUB_ENV
 
       - name: Send Discord notification
         run: |
-          source webhook.env  # .env 파일 로드
-
-          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
-            echo "❌ DISCORD_WEBHOOK_URL is not set. Skipping notification."
-            exit 1
-          fi
-
           COMMIT_INFO="${{ env.commit-info }}"
           if [ -n "$COMMIT_INFO" ]; then
-            MESSAGE=$(echo -e "오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n 잔디🌱를 심었습니다!")
-            JSON_DATA=$(jq -n --arg msg "$MESSAGE" '{content: $msg}')
-
+            MESSAGE="오늘의 커밋 인증! 🔥\n\n$COMMIT_INFO\n 잔디🌱를 심었습니다!"
             curl -X POST \
               -H "Content-Type: application/json" \
-              -d "$JSON_DATA" \
-              "$DISCORD_WEBHOOK_URL"
+              -d "{\"content\": \"$MESSAGE\"}" \
+              "https://discord.com/api/webhooks/1337717353433268234/hGSbJTCiux5hTuMAQYR1o65jXnc-Ew3u7Y7naLrJqAgSZlwjZi0_70EhPX7Etj7eM7u-"
           else
             echo "No commits to notify."
           fi
