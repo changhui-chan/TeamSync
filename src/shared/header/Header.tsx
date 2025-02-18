@@ -1,28 +1,31 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
+import Logo from './components/Logo';
+
 const Header = () => {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const navigateTo = (path: string) => {
+    router.push(path);
+  };
+
   return (
     <header className="sticky top-0 flex h-60 w-max justify-between">
       {router.pathname === '/' ? (
-        <div>
-          <div>Logo 이미지</div>
-          <div></div>
-        </div>
+        <Logo />
       ) : (
         <div>
           {isMobile ? (
             <div>
               <div>메뉴 버튼</div>
-              <div>Logo 이미지</div>
+              <Logo />
             </div>
           ) : (
             <div>
-              <div>Logo 이미지</div>
+              <Logo />
               <div>
                 <div>경영관리팀</div>
                 <div>드롭다운 아이콘</div>
