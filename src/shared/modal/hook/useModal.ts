@@ -1,13 +1,13 @@
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 
-const modalAtom = atom(false);
+import { modalAtom } from '../atom/modalAtom';
 
-export const useModal = () => {
-  const [modalState, setModalState] = useAtom(modalAtom);
+export const useModal = (id: string) => {
+  const [modal, setModal] = useAtom(modalAtom);
 
   return {
-    modalState,
-    open: () => setModalState(true),
-    close: () => setModalState(false),
+    modalState: modal[id] ?? false,
+    open: () => setModal((prev) => ({ ...prev, [id]: true })),
+    close: () => setModal((prev) => ({ ...prev, [id]: false })),
   };
 };
