@@ -11,187 +11,140 @@ import type {
   TaskList,
   User,
 } from './type';
-import { createMutations } from './util/createMutations';
+import { requestData } from './util/apiService';
 import { createQueries } from './util/createQueries';
 
 //User
-export const getUser = (customOptions = {}) =>
-  createQueries<undefined, User.GetUserResponse>(
-    `/user`,
-    undefined,
-    customOptions
-  );
+export const getUser = createQueries<undefined, User.GetUserResponse>(
+  `/user`,
+  undefined
+);
 
-export const patchUser = (
-  data: User.UpdateUserProfileRequest,
-  customOptions = {}
-) =>
-  createMutations<
+export const patchUser = (data: User.UpdateUserProfileRequest) =>
+  requestData<
     undefined,
     User.UpdateUserProfileRequest,
     User.UpdateUserResponse
-  >('patch', `/user`, data, undefined, customOptions);
+  >('patch', `/user`, data, undefined);
 
-export const deleteUser = (customOptions = {}) =>
-  createMutations<undefined, undefined, undefined>(
-    'delete',
-    `/user`,
-    undefined,
-    undefined,
-    customOptions
-  );
+export const deleteUser = requestData<undefined, undefined, undefined>(
+  'delete',
+  `/user`,
+  undefined,
+  undefined
+);
 
-export const getUserGroups = (customOptions = {}) =>
-  createQueries<undefined, User.GetUserGroupsResponse>(
-    `/user/groups`,
-    undefined,
-    customOptions
-  );
+export const getUserGroups = createQueries<
+  undefined,
+  User.GetUserGroupsResponse
+>(`/user/groups`, undefined);
 
-export const getUserMemberships = (customOptions = {}) =>
-  createQueries<undefined, User.GetUserMembershipsResponse>(
-    `/user/memberships`,
-    undefined,
-    customOptions
-  );
+export const getUserMemberships = createQueries<
+  undefined,
+  User.GetUserMembershipsResponse
+>(`/user/memberships`, undefined);
 
-export const getUserHistory = (customOptions = {}) =>
-  createQueries<undefined, User.GetUserHistoryResponse>(
-    `/user/history`,
-    undefined,
-    customOptions
-  );
+export const getUserHistory = createQueries<
+  undefined,
+  User.GetUserHistoryResponse
+>(`/user/history`, undefined);
 
 export const postUserSendResetPasswordEmail = (
-  data: User.SendResetPasswordEmailRequest,
-  customOptions = {}
+  data: User.SendResetPasswordEmailRequest
 ) =>
-  createMutations<
+  requestData<
     undefined,
     User.SendResetPasswordEmailRequest,
     User.SendResetPasswordEmailResponse
-  >('post', `/user/send-reset-password-email`, data, undefined, customOptions);
+  >('post', `/user/send-reset-password-email`, data, undefined);
 
-export const patchUserResetPassword = (
-  data: User.ResetPasswordRequest,
-  customOptions = {}
-) =>
-  createMutations<
+export const patchUserResetPassword = (data: User.ResetPasswordRequest) =>
+  requestData<
     undefined,
     User.ResetPasswordRequest,
     User.UpdateResetPasswordResponse
-  >('patch', `/user/reset-password`, data, undefined, customOptions);
+  >('patch', `/user/reset-password`, data, undefined);
 
-export const patchUserPassword = (
-  data: User.UpdatePasswordRequest,
-  customOptions = {}
-) =>
-  createMutations<
+export const patchUserPassword = (data: User.UpdatePasswordRequest) =>
+  requestData<
     undefined,
     User.UpdatePasswordRequest,
     User.UpdatePasswordResponse
-  >('patch', `/user/password`, data, undefined, customOptions);
+  >('patch', `/user/password`, data, undefined);
 
 //TaskList
-export const getTaskListsId = (
-  params: TaskList.GetTaskListParams,
-  customOptions = {}
-) =>
+export const getTaskListsId = (params: TaskList.GetTaskListParams) =>
   createQueries<TaskList.GetTaskListParams, TaskList.GetTaskListResponse>(
     `/groups/{groupId}/task-lists/{id}`,
-    params,
-    customOptions
+    params
   );
 
 export const patchTaskListsId = (
   data: TaskList.UpdateTaskListRequest,
-  params: TaskList.UpdateTaskListParams,
-  customOptions = {}
+  params: TaskList.UpdateTaskListParams
 ) =>
-  createMutations<
+  requestData<
     TaskList.UpdateTaskListParams,
     TaskList.UpdateTaskListRequest,
     TaskList.UpdateTaskListResponse
-  >('patch', `/groups/{groupId}/task-lists/{id}`, data, params, customOptions);
+  >('patch', `/groups/{groupId}/task-lists/{id}`, data, params);
 
-export const deleteTaskListId = (
-  params: TaskList.DeleteTaskListParams,
-  customOptions = {}
-) =>
-  createMutations<TaskList.DeleteTaskListParams, undefined, undefined>(
+export const deleteTaskListId = (params: TaskList.DeleteTaskListParams) =>
+  requestData<TaskList.DeleteTaskListParams, undefined, undefined>(
     'delete',
     `/groups/{groupId}/task-lists/{id}`,
     undefined,
-    params,
-    customOptions
+    params
   );
 
 export const postTaskLists = (
   data: TaskList.CreateTaskListRequest,
-  params: TaskList.CreateTaskListParams,
-  customOptions = {}
+  params: TaskList.CreateTaskListParams
 ) =>
-  createMutations<
+  requestData<
     TaskList.CreateTaskListParams,
     TaskList.CreateTaskListRequest,
     TaskList.CreateTaskListResponse
-  >('post', `/groups/{groupId}/task-lists`, data, params, customOptions);
+  >('post', `/groups/{groupId}/task-lists`, data, params);
 
 export const patchTaskListsOrder = (
   data: TaskList.UpdateTaskListOrderRequest,
-  params: TaskList.UpdateTaskListOrderParams,
-  customOptions = {}
+  params: TaskList.UpdateTaskListOrderParams
 ) =>
-  createMutations<
+  requestData<
     TaskList.UpdateTaskListOrderParams,
     TaskList.UpdateTaskListOrderRequest,
     undefined
-  >(
-    'post',
-    `/groups/{groupId}/task-lists/{id}/order`,
-    data,
-    params,
-    customOptions
-  );
+  >('post', `/groups/{groupId}/task-lists/{id}/order`, data, params);
 
 //Task
 export const postTasks = (
   data: Task.CreateTaskRequest,
-  params: Task.CreateTaskParams,
-  customOptions = {}
+  params: Task.CreateTaskParams
 ) =>
-  createMutations<
+  requestData<
     Task.CreateTaskParams,
     Task.CreateTaskRequest,
     Task.CreateTaskResponse
-  >(
-    'post',
-    `/groups/{groupId}/task-lists/{taskListId}/tasks`,
-    data,
-    params,
-    customOptions
-  );
+  >('post', `/groups/{groupId}/task-lists/{taskListId}/tasks`, data, params);
 
-export const getTasks = (params: Task.GetTasksParams, customOptions = {}) =>
+export const getTasks = (params: Task.GetTasksParams) =>
   createQueries<Task.GetTasksParams, Task.GetTasksResponse>(
     `/groups/{groupId}/task-lists/{taskListId}/tasks`,
-    params,
-    customOptions
+    params
   );
 
-export const getTasksId = (params: Task.GetTaskParams, customOptions = {}) =>
+export const getTasksId = (params: Task.GetTaskParams) =>
   createQueries<Task.GetTaskParams, Task.GetTaskResponse>(
     `/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}`,
-    params,
-    customOptions
+    params
   );
 
 export const patchTasksId = (
   data: Task.UpdateTaskRequest,
-  params: Task.UpdateTaskParams,
-  customOptions = {}
+  params: Task.UpdateTaskParams
 ) =>
-  createMutations<
+  requestData<
     Task.UpdateTaskParams,
     Task.UpdateTaskRequest,
     Task.UpdateTaskResponse
@@ -199,28 +152,22 @@ export const patchTasksId = (
     'patch',
     `/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}`,
     data,
-    params,
-    customOptions
+    params
   );
 
-export const deleteTasksId = (
-  params: Task.DeleteTasksParams,
-  customOptions = {}
-) =>
-  createMutations<Task.DeleteTasksParams, undefined, undefined>(
+export const deleteTasksId = (params: Task.DeleteTasksParams) =>
+  requestData<Task.DeleteTasksParams, undefined, undefined>(
     'delete',
     `/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}`,
     undefined,
-    params,
-    customOptions
+    params
   );
 
 export const patchTasksIdOrder = (
   data: Task.UpdateTaskOrderRequest,
-  params: Task.UpdateTaskOrderParams,
-  customOptions = {}
+  params: Task.UpdateTaskOrderParams
 ) =>
-  createMutations<
+  requestData<
     Task.UpdateTaskOrderParams,
     Task.UpdateTaskOrderRequest,
     undefined
@@ -228,29 +175,25 @@ export const patchTasksIdOrder = (
     'patch',
     `/groups/{groupId}/task-lists/{taskListId}/tasks/{id}/order`,
     data,
-    params,
-    customOptions
+    params
   );
 
 export const deleteTasksIdRecurringId = (
-  params: Task.DeleteRecurringTaskParams,
-  customOptions = {}
+  params: Task.DeleteRecurringTaskParams
 ) =>
-  createMutations<Task.DeleteRecurringTaskParams, undefined, undefined>(
+  requestData<Task.DeleteRecurringTaskParams, undefined, undefined>(
     'delete',
     `/groups/{groupId}/task-lists/{taskListId}/tasks/{taskId}/recurring/{recurringId}`,
     undefined,
-    params,
-    customOptions
+    params
   );
 
 //Recurring
 export const postTaskListsRecurring = (
   data: Recurring.CreateRecurringTaskRequest,
-  params: Recurring.CreateRecurringTaskParams,
-  customOptions = {}
+  params: Recurring.CreateRecurringTaskParams
 ) =>
-  createMutations<
+  requestData<
     Recurring.CreateRecurringTaskParams,
     Recurring.CreateRecurringTaskRequest,
     Recurring.CreateRecurringTaskResponse
@@ -258,338 +201,254 @@ export const postTaskListsRecurring = (
     'post',
     `/groups/{groupId}/task-lists/{taskListId}/recurring`,
     data,
-    params,
-    customOptions
+    params
   );
 
 //Oauth
-export const postOauthApps = (
-  data: OAuth.CreateOAuthAppRequest,
-  customOptions = {}
-) =>
-  createMutations<
+export const postOauthApps = (data: OAuth.CreateOAuthAppRequest) =>
+  requestData<
     undefined,
     OAuth.CreateOAuthAppRequest,
     OAuth.CreateOAuthAppResponse
-  >('post', `/oauthApps`, data, undefined, customOptions);
+  >('post', `/oauthApps`, data, undefined);
 
 //Image
-export const postImagesUpload = (
-  data: Image.UploadImageRequest,
-  customOptions = {}
-) =>
-  createMutations<
-    undefined,
-    Image.UploadImageRequest,
-    Image.UploadImageResponse
-  >('post', `/oauthApps`, data, undefined, customOptions);
+export const postImagesUpload = (data: Image.UploadImageRequest) =>
+  requestData<undefined, Image.UploadImageRequest, Image.UploadImageResponse>(
+    'post',
+    `/oauthApps`,
+    data,
+    undefined
+  );
 
 //Group
-export const getGroupsId = (params: Group.GetGroupParams, customOptions = {}) =>
+export const getGroupsId = (params: Group.GetGroupParams) =>
   createQueries<Group.GetGroupParams, Group.GetGroupResponse>(
     `/groups/{id}`,
-    params,
-    customOptions
+    params
   );
 
 export const patchGroupsId = (
   data: Group.UpdateGroupRequest,
-  params: Group.UpdateGroupParams,
-  customOptions = {}
+  params: Group.UpdateGroupParams
 ) =>
-  createMutations<
+  requestData<
     Group.UpdateGroupParams,
     Group.UpdateGroupRequest,
     Group.UpdateGroupResponse
-  >('patch', `/groups/{id}`, data, params, customOptions);
+  >('patch', `/groups/{id}`, data, params);
 
-export const deleteGroupsId = (
-  params: Group.DeleteGroupParams,
-  customOptions = {}
-) =>
-  createMutations<Group.DeleteGroupParams, undefined, undefined>(
+export const deleteGroupsId = (params: Group.DeleteGroupParams) =>
+  requestData<Group.DeleteGroupParams, undefined, undefined>(
     'delete',
     `/groups/{id}`,
     undefined,
-    params,
-    customOptions
+    params
   );
 
-export const postGroups = (
-  data: Group.CreateGroupRequest,
-  customOptions = {}
-) =>
-  createMutations<
+export const postGroups = (data: Group.CreateGroupRequest) =>
+  requestData<
     Group.UpdateGroupParams,
     Group.CreateGroupRequest,
     Group.CreateGroupResponse
-  >('post', `/groups`, data, undefined, customOptions);
+  >('post', `/groups`, data, undefined);
 
-export const getGroupsMemberId = (
-  params: Group.GetGroupMemberParams,
-  customOptions = {}
-) =>
+export const getGroupsMemberId = (params: Group.GetGroupMemberParams) =>
   createQueries<Group.GetGroupMemberParams, Group.GetGroupMemberResponse>(
     `/groups/{id}/member/{memberUserId}`,
-    params,
-    customOptions
+    params
   );
 
-export const deleteGroupsMemberId = (
-  params: Group.GroupMemberParams,
-  customOptions = {}
-) =>
-  createMutations<Group.GroupMemberParams, undefined, undefined>(
+export const deleteGroupsMemberId = (params: Group.GroupMemberParams) =>
+  requestData<Group.GroupMemberParams, undefined, undefined>(
     'delete',
     `/groups/{id}/member/{memberUserId}`,
     undefined,
-    params,
-    customOptions
+    params
   );
 
-export const getGroupsInvitation = (
-  params: Group.GetGroupInvitationParams,
-  customOptions = {}
-) =>
+export const getGroupsInvitation = (params: Group.GetGroupInvitationParams) =>
   createQueries<
     Group.GetGroupInvitationParams,
     Group.GetGroupInvitationResponse
-  >(`/groups/{id}/invitation`, params, customOptions);
+  >(`/groups/{id}/invitation`, params);
 
 export const postGroupsAcceptInvitation = (
-  data: Group.AcceptGroupInvitationRequest,
-  customOptions = {}
+  data: Group.AcceptGroupInvitationRequest
 ) =>
-  createMutations<
+  requestData<
     undefined,
     Group.AcceptGroupInvitationRequest,
     Group.AcceptGroupInvitationResponse
-  >('post', `/groups/accept-invitation`, data, undefined, customOptions);
+  >('post', `/groups/accept-invitation`, data, undefined);
 
-export const postGroupsMember = (
-  data: Group.AddGroupMemberRequest,
-  customOptions = {}
-) =>
-  createMutations<
+export const postGroupsMember = (data: Group.AddGroupMemberRequest) =>
+  requestData<
     undefined,
     Group.AddGroupMemberRequest,
     Group.AddGroupMemberResponse
-  >('post', `/groups/{id}/member`, data, undefined, customOptions);
+  >('post', `/groups/{id}/member`, data, undefined);
 
-export const getGroupsTasks = (
-  params: Group.GetGroupTasksParams,
-  customOptions = {}
-) =>
+export const getGroupsTasks = (params: Group.GetGroupTasksParams) =>
   createQueries<Group.GetGroupTasksParams, Group.GroupTaskResponse>(
     `/groups/{id}/tasks`,
-    params,
-    customOptions
+    params
   );
 
 //Comment
-export const getTasksComments = (
-  params: Comment.GetTaskCommentsParams,
-  customOptions = {}
-) =>
+export const getTasksComments = (params: Comment.GetTaskCommentsParams) =>
   createQueries<
     Comment.GetTaskCommentsParams,
     Comment.GetTaskCommentsAPIResponse
-  >(`/tasks/{taskId}/comments`, params, customOptions);
+  >(`/tasks/{taskId}/comments`, params);
 
 export const postTasksComments = (
   data: Comment.CreateTaskCommentRequest,
-  params: Comment.CreateTaskCommentParams,
-  customOptions = {}
+  params: Comment.CreateTaskCommentParams
 ) =>
-  createMutations<
+  requestData<
     Comment.CreateTaskCommentParams,
     Comment.CreateTaskCommentRequest,
     Comment.CreateTaskCommentResponse
-  >('post', `/tasks/{taskId}/comments`, data, params, customOptions);
+  >('post', `/tasks/{taskId}/comments`, data, params);
 
 export const patchTasksCommentsId = (
   data: Comment.UpdateTaskCommentRequest,
-  params: Comment.UpdateTaskCommentParams,
-  customOptions = {}
+  params: Comment.UpdateTaskCommentParams
 ) =>
-  createMutations<
+  requestData<
     Comment.UpdateTaskCommentParams,
     Comment.UpdateTaskCommentRequest,
     Comment.UpdateTaskCommentAPIResponse
-  >(
-    'patch',
-    `/tasks/{taskId}/comments/{commentId}`,
-    data,
-    params,
-    customOptions
-  );
+  >('patch', `/tasks/{taskId}/comments/{commentId}`, data, params);
 
 export const deleteTasksCommentsId = (
-  params: Comment.DeleteTaskCommentParams,
-  customOptions = {}
+  params: Comment.DeleteTaskCommentParams
 ) =>
-  createMutations<
+  requestData<
     Comment.DeleteTaskCommentParams,
     undefined,
     Comment.DeleteTaskCommentAPIResponse
-  >(
-    'delete',
-    `/tasks/{taskId}/comments/{commentId}`,
-    undefined,
-    params,
-    customOptions
-  );
+  >('delete', `/tasks/{taskId}/comments/{commentId}`, undefined, params);
 
 //Auth
-export const postSignUp = (data: Auth.SignUpRequest, customOptions = {}) =>
-  createMutations<undefined, Auth.SignUpRequest, Auth.SignUpResponse>(
+export const postSignUp = (data: Auth.SignUpRequest) =>
+  requestData<undefined, Auth.SignUpRequest, Auth.SignUpResponse>(
     'post',
     '/auth/signUp',
     data,
-    undefined,
-    customOptions
+    undefined
   );
 
-export const postSignIn = (data: Auth.SignInRequest, customOptions = {}) =>
-  createMutations<undefined, Auth.SignInRequest, Auth.SignInResponse>(
+export const postSignIn = (data: Auth.SignInRequest) =>
+  requestData<undefined, Auth.SignInRequest, Auth.SignInResponse>(
     'post',
     '/auth/signIn',
     data,
-    undefined,
-    customOptions
+    undefined
   );
 
-export const postRefreshToken = (
-  data: Auth.RefreshTokenRequest,
-  customOptions = {}
-) =>
-  createMutations<
-    undefined,
-    Auth.RefreshTokenRequest,
-    Auth.RefreshTokenResponse
-  >('post', '/auth/refresh-token', data, undefined, customOptions);
+export const postRefreshToken = (data: Auth.RefreshTokenRequest) =>
+  requestData<undefined, Auth.RefreshTokenRequest, Auth.RefreshTokenResponse>(
+    'post',
+    '/auth/refresh-token',
+    data,
+    undefined
+  );
 
 export const postSignInProvider = (
   data: Auth.SocialSignInRequest,
-  params: Auth.SocialSignInParams,
-  customOptions = {}
+  params: Auth.SocialSignInParams
 ) =>
-  createMutations<
+  requestData<
     Auth.SocialSignInParams,
     Auth.SocialSignInRequest,
     Auth.SocialSignInResponse
-  >('post', '/auth/signIn/provider', data, params, customOptions);
+  >('post', '/auth/signIn/provider', data, params);
 
 //ArticleComment
 export const postArticlesComments = (
   data: ArticleComment.CreateArticleCommentRequest,
-  params: ArticleComment.CreateArticleCommentParams,
-  customOptions = {}
+  params: ArticleComment.CreateArticleCommentParams
 ) =>
-  createMutations<
+  requestData<
     ArticleComment.CreateArticleCommentParams,
     ArticleComment.CreateArticleCommentRequest,
     ArticleComment.CreateArticleCommentResponse
-  >('post', '/articles/{articleId}/comments', data, params, customOptions);
+  >('post', '/articles/{articleId}/comments', data, params);
 
 export const getArticlesComments = (
-  params: ArticleComment.GetArticleCommentsParams,
-  customOptions = {}
+  params: ArticleComment.GetArticleCommentsParams
 ) =>
   createQueries<
     ArticleComment.GetArticleCommentsParams,
     ArticleComment.GetArticleCommentsResponse
-  >(`/articles/{articleId}/comments`, params, customOptions);
+  >(`/articles/{articleId}/comments`, params);
 
 export const patchCommentsId = (
   data: ArticleComment.UpdateCommentRequest,
-  params: ArticleComment.UpdateCommentParams,
-  customOptions = {}
+  params: ArticleComment.UpdateCommentParams
 ) =>
-  createMutations<
+  requestData<
     ArticleComment.UpdateCommentParams,
     ArticleComment.UpdateCommentRequest,
     ArticleComment.UpdateCommentResponse
-  >('patch', '/comments/{commentId}', data, params, customOptions);
+  >('patch', '/comments/{commentId}', data, params);
 
-export const deleteCommentsId = (
-  params: ArticleComment.DeleteCommentParams,
-  customOptions = {}
-) =>
-  createMutations<
+export const deleteCommentsId = (params: ArticleComment.DeleteCommentParams) =>
+  requestData<
     ArticleComment.DeleteCommentParams,
     undefined,
     ArticleComment.DeleteCommentResponse
-  >('delete', '/comments/{commentId}', undefined, params, customOptions);
+  >('delete', '/comments/{commentId}', undefined, params);
 
 //Article
-export const postArticles = (
-  data: Article.CreateArticleRequest,
-  customOptions = {}
-) =>
-  createMutations<
+export const postArticles = (data: Article.CreateArticleRequest) =>
+  requestData<
     undefined,
     Article.CreateArticleRequest,
     Article.CreateArticleResponse
-  >('post', '/articles', data, undefined, customOptions);
+  >('post', '/articles', data, undefined);
 
-export const getArticles = (
-  params: Article.GetArticlesParams,
-  customOptions = {}
-) =>
+export const getArticles = (params: Article.GetArticlesParams) =>
   createQueries<Article.GetArticlesParams, Article.GetArticlesResponse>(
     `/articles`,
-    params,
-    customOptions
+    params
   );
 
-export const getArticlesId = (
-  params: Article.GetArticleParams,
-  customOptions = {}
-) =>
+export const getArticlesId = (params: Article.GetArticleParams) =>
   createQueries<Article.GetArticleParams, Article.GetArticleResponse>(
     `/articles`,
-    params,
-    customOptions
+    params
   );
 
 export const patchArticlesId = (
   data: Article.UpdateArticleRequest,
-  params: Article.UpdateArticleParams,
-  customOptions = {}
+  params: Article.UpdateArticleParams
 ) =>
-  createMutations<
+  requestData<
     Article.UpdateArticleParams,
     Article.UpdateArticleRequest,
     Article.UpdateArticleResponse
-  >('patch', '/articles/{articleId}', data, params, customOptions);
+  >('patch', '/articles/{articleId}', data, params);
 
-export const deleteArticlesId = (
-  params: Article.DeleteArticleParams,
-  customOptions = {}
-) =>
-  createMutations<
+export const deleteArticlesId = (params: Article.DeleteArticleParams) =>
+  requestData<
     Article.DeleteArticleParams,
     undefined,
     Article.DeleteArticleResponse
-  >('delete', '/articles/{articleId}', undefined, params, customOptions);
+  >('delete', '/articles/{articleId}', undefined, params);
 
-export const postArticlesLike = (
-  params: Article.CreateArticleLikeParams,
-  customOptions = {}
-) =>
-  createMutations<
+export const postArticlesLike = (params: Article.CreateArticleLikeParams) =>
+  requestData<
     Article.CreateArticleLikeParams,
     undefined,
     Article.CreateArticleLikeResponse
-  >('post', '/articles/{articleId}/like', undefined, params, customOptions);
+  >('post', '/articles/{articleId}/like', undefined, params);
 
-export const deleteArticlesLike = (
-  params: Article.DeleteArticleLikeParams,
-  customOptions = {}
-) =>
-  createMutations<
+export const deleteArticlesLike = (params: Article.DeleteArticleLikeParams) =>
+  requestData<
     Article.DeleteArticleLikeParams,
     undefined,
     Article.DeleteArticleLikeResponse
-  >('delete', '/articles/{articleId}/like', undefined, params, customOptions);
+  >('delete', '/articles/{articleId}/like', undefined, params);
