@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
+import { useIsMobile } from '@/hook/useDevice';
+
+import Forum from './components/Forum';
 import Logo from './components/Logo';
+import Menu from './components/Menu';
+import TeamNav from './components/TeamNav';
+import UserProfile from './components/UserProfile';
 
 const Header = () => {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
 
   const navigateTo = (path: string) => {
     router.push(path);
@@ -20,27 +26,17 @@ const Header = () => {
         <div>
           {isMobile ? (
             <div>
-              <div>메뉴 버튼</div>
+              <Menu />
               <Logo />
             </div>
           ) : (
             <div>
               <Logo />
-              <div>
-                <div>경영관리팀</div>
-                <div>드롭다운 아이콘</div>
-              </div>
-              <div>자유게시판</div>
+              <TeamNav />
+              <Forum />
             </div>
           )}
-          {isLogin ? (
-            <div>
-              <div>아바타 이미지</div>
-              <div>Username</div>
-            </div>
-          ) : (
-            <div></div>
-          )}
+          {isLogin ? <UserProfile /> : <div></div>}
         </div>
       )}
     </header>
