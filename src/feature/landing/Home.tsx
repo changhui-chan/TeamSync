@@ -1,6 +1,11 @@
 import Image from 'next/image';
 
+import { useIsMobile, useIsTablet } from '@/hook/useDevice';
+
 const Home = () => {
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
+
   return (
     <div>
       <div>헤더 import 영역</div>
@@ -16,7 +21,17 @@ const Home = () => {
         </h3>
         <h3>TeamSync</h3>
       </div>
-      <div>배너 이미지 영역</div>
+      <Image
+        src={
+          isTablet
+            ? '/image/img-bannerTablet.svg'
+            : isMobile
+              ? '/image/img-bannerMobile.svg'
+              : '/image/img-banner.svg'
+        }
+        fill
+        alt="배너 이미지"
+      />
       <button type="button">지금 시작하기</button>
       <section>
         <div>
