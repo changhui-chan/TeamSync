@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
+import { useSetAtom } from 'jotai';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
@@ -9,6 +10,7 @@ import type { Auth } from '@/api/type';
 import axiosInstance from '@/lib/axiosInstance';
 import ErrorMessages from '@/shared/input/errorMessage';
 import Input from '@/shared/input/input';
+import { accessTokenAtom, userAtom } from '@/store/userAtom';
 
 const postSignIn = async (
   signInData: Auth.SignInRequest
@@ -25,7 +27,8 @@ const Login = () => {
     clearErrors,
     formState: { errors, isValid },
   } = useForm<Auth.SignInRequest>();
-
+  const setUser = useSetAtom(userAtom);
+  const setAccessToken = useSetAtom(accessTokenAtom);
   const [isVisible, setIsVisible] = useState(false);
 
   const handleEyeClick = () => {
@@ -39,6 +42,8 @@ const Login = () => {
   >({
     mutationFn: postSignIn,
     onSuccess: (data) => {
+      setUser(data.user);
+      setAccessToken(data.accessToken);
       console.log('성공', data);
     },
   });
@@ -123,6 +128,7 @@ const Login = () => {
             />
           )}
         </div>
+
         <button
           type="submit"
           className={`w-full rounded-md p-3 text-white-100 ${!isValid ? 'cursor bg-black-300' : 'bg-green-300'}`}
