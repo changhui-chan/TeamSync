@@ -1,21 +1,21 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+@tailwind components;
 
 @layer base {
   body,
   .modal {
     @apply bg-white-100 font-sans text-black-200;
   }
+}
 
-  @media (prefers-color-scheme: dark) {
-    body {
-      @apply bg-black-100 text-white-100;
-    }
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-black-100 text-white-100;
+  }
 
-    .modal {
-      @apply bg-black-200;
-    }
+  .modal {
+    @apply bg-black-200;
   }
 }
 
@@ -31,6 +31,6 @@
   }
 
   .modal {
-    @apply animate-fade-in w-full rounded-t-xl md:w-auto md:rounded-xl;
+    @apply w-full animate-fade-in rounded-t-xl md:w-auto md:rounded-xl;
   }
 }
