@@ -22,9 +22,9 @@ export default {
       regular: '400',
     },
     screens: {
-      md: '768px',
-      lg: '1024px',
-      xl: '1440px',
+      dt: { min: '1200px' }, //데스크탑 퍼스트
+      tb: { max: '1199px' }, //태블릿
+      mb: { max: '743px' }, //모바일
     },
     colors: {
       white: {
