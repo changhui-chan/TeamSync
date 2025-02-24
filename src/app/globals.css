@@ -25,7 +25,7 @@
   }
 }
 
-@layer components {
+/* @layer components {
   .modal-overlay {
     @apply;
   }
@@ -33,4 +33,4 @@
   .modal {
     @apply animate-fade-in;
   }
-}
+} */
