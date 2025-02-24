@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { useSetAtom } from 'jotai';
+import { useCookies } from 'react-cookie';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
@@ -11,7 +12,6 @@ import axiosInstance from '@/lib/axiosInstance';
 import ErrorMessages from '@/shared/input/errorMessage';
 import Input from '@/shared/input/input';
 import { accessTokenAtom, userAtom } from '@/store/userAtom';
-
 const postSignIn = async (
   signInData: Auth.SignInRequest
 ): Promise<Auth.AuthResponse> => {
@@ -30,7 +30,7 @@ const Login = () => {
   const setUser = useSetAtom(userAtom);
   const setAccessToken = useSetAtom(accessTokenAtom);
   const [isVisible, setIsVisible] = useState(false);
-
+  const [cookies, setCookie] = useCookies(['refreshToken']);
   const handleEyeClick = () => {
     setIsVisible((prev) => !prev);
   };
@@ -42,10 +42,16 @@ const Login = () => {
   >({
     mutationFn: postSignIn,
     onSuccess: (data) => {
-      setUser(data.user);
-      setAccessToken(data.accessToken);
       sessionStorage.setItem('accessToken', data.accessToken);
-      sessionStorage.setItem('refreshToken', data.refreshToken);
+      sessionStorage.setItem('user', JSON.stringify(data.user));
+      setCookie('refreshToken', data.refreshToken, {
+        path: '/',
+        maxAge: 60 * 30,
+        secure: true,
+        sameSite: 'strict',
+      });
+      setAccessToken(data.accessToken);
+      setUser(data.user);
     },
   });
 
