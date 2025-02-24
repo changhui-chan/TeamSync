@@ -25,12 +25,12 @@
   }
 }
 
-@layer components {
+/* @layer components {
   .modal-overlay {
-    @apply fixed left-0 top-0 z-50 flex h-screen w-screen items-end justify-center bg-black-100/50 md:items-center;
+    @apply;
   }
 
   .modal {
-    @apply w-full animate-fade-in rounded-t-xl md:w-auto md:rounded-xl;
+    @apply animate-fade-in;
   }
-}
+} */

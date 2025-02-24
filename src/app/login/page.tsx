@@ -1,15 +1,23 @@
 'use client';
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
+import { useSetAtom } from 'jotai';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
+import type { Auth } from '@/api/type';
+import axiosInstance from '@/lib/axiosInstance';
 import ErrorMessages from '@/shared/input/errorMessage';
 import Input from '@/shared/input/input';
+import { accessTokenAtom, userAtom } from '@/store/userAtom';
 
-interface FormInput {
-  email: string;
-  password: string;
-}
+const postSignIn = async (
+  signInData: Auth.SignInRequest
+): Promise<Auth.AuthResponse> => {
+  const response = await axiosInstance.post('/auth/signIn', signInData);
+  return response.data;
+};
 
 const Login = () => {
   const {
@@ -18,23 +26,37 @@ const Login = () => {
     setError,
     clearErrors,
     formState: { errors, isValid },
-  } = useForm<FormInput>();
-
+  } = useForm<Auth.SignInRequest>();
+  const setUser = useSetAtom(userAtom);
+  const setAccessToken = useSetAtom(accessTokenAtom);
   const [isVisible, setIsVisible] = useState(false);
 
   const handleEyeClick = () => {
     setIsVisible((prev) => !prev);
   };
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log('결과:', data);
-    // 이후 추가 작업 예정
+  const mutation = useMutation<
+    Auth.AuthResponse,
+    AxiosError,
+    Auth.SignInRequest
+  >({
+    mutationFn: postSignIn,
+    onSuccess: (data) => {
+      setUser(data.user);
+      setAccessToken(data.accessToken);
+      console.log('성공', data);
+    },
+  });
+
+  const onSubmitHandler: SubmitHandler<Auth.SignInRequest> = (data) => {
+    console.log('onSubmitHandler 실행됨!', data);
+    mutation.mutate(data);
   };
 
   return (
     <div className="mt-[100] flex min-h-screen w-full items-start justify-center">
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmitHandler)}
         className="flex w-2/4 flex-col gap-5"
         noValidate
       >
@@ -102,7 +124,7 @@ const Login = () => {
           {errors.password && (
             <ErrorMessages
               errorClass="text-error text-sm"
-              errorMessage={errors.password?.message as string}
+              errorMessage={errors.password?.message}
             />
           )}
         </div>

@@ -47,6 +47,7 @@ const Input = ({
       />
       {name === 'password' && inputValue && onEyeClick && (
         <button
+          type="button"
           onClick={onEyeClick}
           className="absolute right-3 top-1/2 -translate-y-1/2 transform"
         >

@@ -5,8 +5,7 @@ import { queryClient } from './defaultOptions';
 
 export const createQueryOptions = <R>(
   queryKey: QueryKey,
-  queryFn: () => Promise<R>,
-  customOptions = {}
+  queryFn: () => Promise<R>
 ) => {
   const cachedData = queryClient.getQueryData<R>(queryKey);
 
@@ -18,15 +17,5 @@ export const createQueryOptions = <R>(
     initialData: () => {
       return cachedData || ([] as R);
     },
-    ...customOptions,
   });
 };
-
-export const createMutationOptions = <R>(
-  mutationFn: () => Promise<R>,
-  customOptions = {}
-) => ({
-  ...(queryClient.getDefaultOptions().queries as R),
-  mutationFn,
-  ...customOptions,
-});
