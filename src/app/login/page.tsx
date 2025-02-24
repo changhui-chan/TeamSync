@@ -7,17 +7,11 @@ import { useCookies } from 'react-cookie';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
+import { postSignIn } from '@/api/index';
 import type { Auth } from '@/api/type';
-import axiosInstance from '@/lib/axiosInstance';
 import ErrorMessages from '@/shared/input/errorMessage';
 import Input from '@/shared/input/input';
 import { accessTokenAtom, userAtom } from '@/store/userAtom';
-const postSignIn = async (
-  signInData: Auth.SignInRequest
-): Promise<Auth.AuthResponse> => {
-  const response = await axiosInstance.post('/auth/signIn', signInData);
-  return response.data;
-};
 
 const Login = () => {
   const {
@@ -56,6 +50,7 @@ const Login = () => {
   });
 
   const onSubmitHandler: SubmitHandler<Auth.SignInRequest> = (data) => {
+    console.log('onSubmitHandler 실행됨!', data);
     mutation.mutate(data);
   };
 
