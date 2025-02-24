@@ -8,7 +8,7 @@ const MyHistory = () => {
   const [user] = useAtom(userAtom);
 
   return accessToken ? (
-    <p>환영합니다, {user.nickname}님!</p>
+    <p>{user.nickname}님! 안녕하세요</p>
   ) : (
     <p>로그인이 필요합니다.</p>
   );

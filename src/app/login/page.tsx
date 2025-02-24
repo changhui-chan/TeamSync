@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { useSetAtom } from 'jotai';
-import Link from 'next/link';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
@@ -51,7 +50,6 @@ const Login = () => {
   });
 
   const onSubmitHandler: SubmitHandler<Auth.SignInRequest> = (data) => {
-    console.log('onSubmitHandler 실행됨!', data);
     mutation.mutate(data);
   };
 
@@ -130,15 +128,14 @@ const Login = () => {
             />
           )}
         </div>
-        <Link href="/myhistory">
-          <button
-            type="submit"
-            className={`w-full rounded-md p-3 text-white-100 ${!isValid ? 'cursor bg-black-300' : 'bg-green-300'}`}
-            disabled={!isValid}
-          >
-            로그인
-          </button>
-        </Link>
+
+        <button
+          type="submit"
+          className={`w-full rounded-md p-3 text-white-100 ${!isValid ? 'cursor bg-black-300' : 'bg-green-300'}`}
+          disabled={!isValid}
+        >
+          로그인
+        </button>
       </form>
     </div>
   );
