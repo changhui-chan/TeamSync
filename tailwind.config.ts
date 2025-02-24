@@ -48,6 +48,56 @@ export default {
         500: '#A3E635',
       },
       error: '#DC2626',
+      //Figma
+      brand: {
+        primary: '#10B981',
+        secondary: '#34D399',
+        tertiary: '#A3E635',
+        gradient: 'linear-gradient(to right, #10B981, #A3E635)',
+      },
+      point: {
+        purple: '#A855F7',
+        blue: '#3B82F6',
+        cyan: '#06B6D4',
+        pink: '#EC4899',
+        rose: '#F43F5E',
+        orange: '#F97316',
+        yellow: '#EAB308',
+      },
+      background: {
+        primary: '#FFFFFF', //라이트모드
+        secondary: '#1E293B',
+        tertiary: '#334155',
+        inverse: '#101218', //다크모드
+        overlay: '#00000080', //모달 오버레이
+      },
+      interaction: {
+        inactive: '#94A3B8',
+        hover: '#059669',
+        pressed: '#047857',
+        focus: '#10B981',
+      },
+      border: {
+        primary: '#F8FAFC80', // 50% 투명도 적용
+      },
+      text: {
+        primary: '#1F1F1F', //라이트모드
+        secondary: '#CBD5E1',
+        tertiary: '#E2E8F0',
+        default: '#64748B',
+        inverse: '#FFFFFF', //다크모드
+        disabled: '#94A3B8',
+      },
+
+      icon: {
+        primary: '#64748B',
+        inverse: '#F8FAFC',
+        brand: '#10B981',
+        danger: '#DC2626',
+      },
+      status: {
+        danger: '#DC2626',
+      },
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
