@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import { IoMdSettings } from 'react-icons/io';
+
 const Team = () => {
   return (
     <div>
@@ -5,8 +8,13 @@ const Team = () => {
       <section>
         <p>경영관리팀</p>
         <div>
-          <div>이상한 쿠폰 모양 이미지</div>
-          <div>톱니바퀴 이미지</div>
+          <Image
+            src="/image/image-maskGroup.svg"
+            alt="마스크 이미지"
+            width={180}
+            height={65}
+          />
+          <IoMdSettings color="#fff" />
         </div>
       </section>
       <section>
@@ -78,14 +86,24 @@ const Team = () => {
                 <p>오늘의 할 일</p>
                 <div>20개</div>
               </div>
-              <div>아저씨 아이콘</div>
+              <Image
+                src="/icon/icon-head.svg"
+                alt="아저씨 아이콘"
+                width={32}
+                height={32}
+              />
             </div>
             <div>
               <div>
                 <p>한 일</p>
                 <div>5개</div>
               </div>
-              <div>칠판 아이콘</div>
+              <Image
+                src="/icon/icon-sign.svg"
+                alt="칠판 아이콘"
+                width={32}
+                height={32}
+              />
             </div>
           </div>
         </div>
@@ -100,7 +118,12 @@ const Team = () => {
         </div>
         <div>
           <div>
-            <div>유저 대표 이미지</div>
+            <Image
+              src="/icon/ic-defaultAvatar.svg"
+              alt="기본 아바타 이미지"
+              width={32}
+              height={32}
+            />
             <div>
               <p>Username</p>
               <p>Useremail</p>
@@ -108,7 +131,12 @@ const Team = () => {
             <div>더보기 아이콘</div>
           </div>
           <div>
-            <div>유저 대표 이미지</div>
+            <Image
+              src="/icon/ic-defaultAvatar.svg"
+              alt="기본 아바타 이미지"
+              width={32}
+              height={32}
+            />
             <div>
               <p>Username</p>
               <p>Useremail</p>
@@ -116,7 +144,12 @@ const Team = () => {
             <div>더보기 아이콘</div>
           </div>
           <div>
-            <div>유저 대표 이미지</div>
+            <Image
+              src="/icon/ic-defaultAvatar.svg"
+              alt="기본 아바타 이미지"
+              width={32}
+              height={32}
+            />
             <div>
               <p>Username</p>
               <p>Useremail</p>
@@ -124,7 +157,12 @@ const Team = () => {
             <div>더보기 아이콘</div>
           </div>
           <div>
-            <div>유저 대표 이미지</div>
+            <Image
+              src="/icon/ic-defaultAvatar.svg"
+              alt="기본 아바타 이미지"
+              width={32}
+              height={32}
+            />
             <div>
               <p>Username</p>
               <p>Useremail</p>
@@ -132,7 +170,12 @@ const Team = () => {
             <div>더보기 아이콘</div>
           </div>
           <div>
-            <div>유저 대표 이미지</div>
+            <Image
+              src="/icon/ic-defaultAvatar.svg"
+              alt="기본 아바타 이미지"
+              width={32}
+              height={32}
+            />
             <div>
               <p>Username</p>
               <p>Useremail</p>
@@ -140,7 +183,12 @@ const Team = () => {
             <div>더보기 아이콘</div>
           </div>
           <div>
-            <div>유저 대표 이미지</div>
+            <Image
+              src="/icon/ic-defaultAvatar.svg"
+              alt="기본 아바타 이미지"
+              width={32}
+              height={32}
+            />
             <div>
               <p>Username</p>
               <p>Useremail</p>
