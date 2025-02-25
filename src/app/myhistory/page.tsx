@@ -1,13 +1,17 @@
-import Link from 'next/link';
+'use client';
+import { useAtom } from 'jotai';
 
+import { accessTokenAtom, userAtom } from '@/store/userAtom';
 
-const MyhistoryPage = () => {
-  return (
-    <div>
-      <h1>My History</h1>
-      <Link href="/">Go to Home</Link>
-    </div>
+const MyHistory = () => {
+  const [accessToken] = useAtom(accessTokenAtom);
+  const [user] = useAtom(userAtom);
+
+  return accessToken ? (
+    <p>{user.nickname}님! 안녕하세요</p>
+  ) : (
+    <p>로그인이 필요합니다.</p>
   );
 };
 
-export default MyhistoryPage;
+export default MyHistory;

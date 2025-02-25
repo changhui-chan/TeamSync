@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Coworkers',
-  description: 'Coworkers Page',
+  title: 'TeamSync',
+  description: 'TeamSync Page',
 };
 
 export default function RootLayout({

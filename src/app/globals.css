@@ -1,21 +1,21 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+@tailwind components;
 
 @layer base {
   body,
   .modal {
     @apply bg-white-100 font-sans text-black-200;
   }
+}
 
-  @media (prefers-color-scheme: dark) {
-    body {
-      @apply bg-black-100 text-white-100;
-    }
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-black-100 text-white-100;
+  }
 
-    .modal {
-      @apply bg-black-200;
-    }
+  .modal {
+    @apply bg-black-200;
   }
 }
 
@@ -25,12 +25,12 @@
   }
 }
 
-@layer components {
+/* @layer components {
   .modal-overlay {
-    @apply fixed left-0 top-0 z-50 flex h-screen w-screen items-end justify-center bg-black-100/50 md:items-center;
+    @apply;
   }
 
   .modal {
-    @apply animate-fade-in w-full rounded-t-xl md:w-auto md:rounded-xl;
+    @apply animate-fade-in;
   }
-}
+} */
