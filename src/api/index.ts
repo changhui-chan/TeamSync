@@ -15,10 +15,8 @@ import { requestData } from './util/apiService';
 import { createQueries } from './util/createQueries';
 
 //User
-export const getUser = createQueries<undefined, User.GetUserResponse>(
-  `/user`,
-  undefined
-);
+export const getUser = () =>
+  createQueries<undefined, User.GetUserResponse>(`/user`, undefined);
 
 export const patchUser = (data: User.UpdateUserProfileRequest) =>
   requestData<
@@ -27,27 +25,31 @@ export const patchUser = (data: User.UpdateUserProfileRequest) =>
     User.UpdateUserResponse
   >('patch', `/user`, data, undefined);
 
-export const deleteUser = requestData<undefined, undefined, undefined>(
-  'delete',
-  `/user`,
-  undefined,
-  undefined
-);
+export const deleteUser = () =>
+  requestData<undefined, undefined, undefined>(
+    'delete',
+    `/user`,
+    undefined,
+    undefined
+  );
 
-export const getUserGroups = createQueries<
-  undefined,
-  User.GetUserGroupsResponse
->(`/user/groups`, undefined);
+export const getUserGroups = () =>
+  createQueries<undefined, User.GetUserGroupsResponse>(
+    `/user/groups`,
+    undefined
+  );
 
-export const getUserMemberships = createQueries<
-  undefined,
-  User.GetUserMembershipsResponse
->(`/user/memberships`, undefined);
+export const getUserMemberships = () =>
+  createQueries<undefined, User.GetUserMembershipsResponse>(
+    `/user/memberships`,
+    undefined
+  );
 
-export const getUserHistory = createQueries<
-  undefined,
-  User.GetUserHistoryResponse
->(`/user/history`, undefined);
+export const getUserHistory = () =>
+  createQueries<undefined, User.GetUserHistoryResponse>(
+    `/user/history`,
+    undefined
+  );
 
 export const postUserSendResetPasswordEmail = (
   data: User.SendResetPasswordEmailRequest
