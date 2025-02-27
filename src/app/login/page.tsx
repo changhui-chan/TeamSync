@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { useSetAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
 import { useCookies } from 'react-cookie';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -22,9 +23,18 @@ const Login = () => {
     formState: { errors, isValid },
   } = useForm<Auth.SignInRequest>();
   const setUser = useSetAtom(userAtom);
+  const router = useRouter();
   const setAccessToken = useSetAtom(accessTokenAtom);
   const [isVisible, setIsVisible] = useState(false);
   const [cookies, setCookie] = useCookies(['refreshToken']);
+
+  useEffect(() => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    if (accessToken) {
+      router.push('/myhistory');
+    }
+  }, [router]);
+
   const handleEyeClick = () => {
     setIsVisible((prev) => !prev);
   };
@@ -46,11 +56,11 @@ const Login = () => {
       });
       setAccessToken(data.accessToken);
       setUser(data.user);
+      router.push('/myhistory');
     },
   });
 
   const onSubmitHandler: SubmitHandler<Auth.SignInRequest> = (data) => {
-    console.log('onSubmitHandler 실행됨!', data);
     mutation.mutate(data);
   };
 
