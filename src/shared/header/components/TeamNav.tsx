@@ -14,12 +14,19 @@ const TeamNav = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleTeamChangeDropdown = () => {
-    setTeam(teamList[Math.floor(Math.random() * teamList.length)]);
+    let temp = Math.floor(Math.random() * teamList.length);
+    while (team === teamList[temp]) {
+      temp = Math.floor(Math.random() * teamList.length);
+    }
+    setTeam(teamList[temp]);
   };
 
   return (
-    <div>
-      <div onClick={handleTeamChangeDropdown}>
+    <div className="w-[100px] cursor-pointer">
+      <div
+        className="flex select-none flex-row items-center justify-between text-[16px]"
+        onClick={handleTeamChangeDropdown}
+      >
         <p>{team}</p>
         <IoIosArrowDown />
       </div>
