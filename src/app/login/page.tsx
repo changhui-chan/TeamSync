@@ -22,9 +22,11 @@ const Login = () => {
     formState: { errors, isValid },
   } = useForm<Auth.SignInRequest>();
   const setUser = useSetAtom(userAtom);
+
   const setAccessToken = useSetAtom(accessTokenAtom);
   const [isVisible, setIsVisible] = useState(false);
   const [cookies, setCookie] = useCookies(['refreshToken']);
+
   const handleEyeClick = () => {
     setIsVisible((prev) => !prev);
   };
@@ -50,7 +52,6 @@ const Login = () => {
   });
 
   const onSubmitHandler: SubmitHandler<Auth.SignInRequest> = (data) => {
-    console.log('onSubmitHandler 실행됨!', data);
     mutation.mutate(data);
   };
 
