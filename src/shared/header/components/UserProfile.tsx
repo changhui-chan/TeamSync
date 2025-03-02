@@ -16,9 +16,12 @@ const UserProfile = () => {
 
   return (
     <div>
-      <div onClick={handleUserProfileDropdown}>
+      <div
+        className="flex cursor-pointer flex-row items-center gap-[8]"
+        onClick={handleUserProfileDropdown}
+      >
         {isDesktop ? (
-          <div>
+          <div className="flex flex-row items-center gap-[8]">
             <FaUserLarge />
             <p>{username}</p>
           </div>

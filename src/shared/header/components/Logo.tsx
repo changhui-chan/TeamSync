@@ -1,18 +1,12 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Logo = () => {
-  const router = useRouter();
-
-  const navigateTo = (path: string) => {
-    router.push(path);
-  };
-
   return (
-    <div onClick={() => navigateTo('/')}>
-      <Image src="/ic-logo.svg" alt="로고" width={16} height={16} />
+    <Link href="/" className="flex flex-row gap-[2] text-[20px] text-[#10B981]">
+      <Image src="/icon/ic-logo.svg" alt="로고" width={16} height={16} />
       <p>TeamSync</p>
-    </div>
+    </Link>
   );
 };
 

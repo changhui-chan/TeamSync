@@ -1,21 +1,9 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Forum = () => {
-  const router = useRouter();
-
-  const navigateTo = (path: string) => {
-    router.push(path);
-  };
-
   return (
-    <div>
-      <p
-        onClick={() => {
-          navigateTo('/boards');
-        }}
-      >
-        자유게시판
-      </p>
+    <div className="text-[16px]">
+      <Link href="/boards">자유게시판</Link>
     </div>
   );
 };
